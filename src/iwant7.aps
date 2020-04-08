@@ -1,0 +1,19 @@
+                                                                                                                                                                                                                                                                                                                                                                             
+[
+	CONST i int 5;
+	ECHO (add 5 2);
+	ECHO (add 2 5);
+	ECHO (sub 8 1);
+	ECHO (add 14(sub 1 8));
+	ECHO (div 70 10);
+	ECHO (div 71 10);	
+	ECHO (sub 7 (div 1 60));
+	ECHO (IF true 7 6);
+	ECHO (IF false 6 7);
+	ECHO (IF (eq 0 0) 7 6);
+	ECHO (IF (eq 1 0) 6 7);
+	ECHO (IF (eq 0 1) 6 7);
+	ECHO (IF (lt 2 5) 7 6);
+	ECHO (IF (lt 22 5) 6 7);
+	ECHO (add i 2)
+]
