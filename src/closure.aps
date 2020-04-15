@@ -1,5 +1,5 @@
 [
 	CONST i int 5;
 	FUN f (int)->int [x:int] (add i 2);
-	ECHO (f 2)
+	ECHO (([x:int] (add i x)) 2)
 ]

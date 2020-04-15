@@ -15,12 +15,12 @@ typedef struct{
 	AST body;
 	Env env;
 	String* args;
-}Closure;
+}*Closure;
 */
 /*		### DECLARATION FONCTION ###	*/
 Closure create_closure(AST body, Env env, AST arg);
 
-Value apply(Value (*eval)(AST, Env), const Closure, AST args);
+Value apply(Value (*eval)(AST, Env), Closure closure, AST args);
 
 void free_closure(Closure closure);
 

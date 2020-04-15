@@ -58,7 +58,7 @@ Env surface_copy(Env env){
 
 void purge_local_env(Env env){
 	List temp;
-
+	
 	for(List list = env->local_env; list != NULL; list = temp){
 		temp = list->next;
 		free(list->name);

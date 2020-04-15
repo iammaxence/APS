@@ -205,7 +205,6 @@ void displayNTab(unsigned int n){
 	}
 }
 
-
 void displayProlog(AST node, int n){
 
 	switch(node->tag){
@@ -397,6 +396,8 @@ void displayProlog(AST node, int n){
 
 Value eval(AST node, Env env){
 	Value v;
+	v.closure.args = NULL;
+	
 	switch(node->tag){
 		case(ASTProg): 
 			eval(node->child[0], env);	
@@ -451,7 +452,9 @@ Value eval(AST node, Env env){
 		case(ASTEXPR1): 
 			return evalClef(node, env);
 			
-		case(ASTEXPR2): break;
+		case(ASTEXPR2): 			
+			v.closure = create_closure(node->child[1], env, node->child[0]);
+			return v;
 
 		case(ASTEXPR3): 
 			return apply(eval, eval(node->child[0], env).closure, node->child[1]);
