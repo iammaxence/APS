@@ -1,2 +1,5 @@
 *.o
 */as
+src/lex.yy.*
+src/aps.tab.*
+src/aps.output

@@ -1,7 +1,7 @@
 
 /*		### BIBLIOTHEQUE ###		*/
 #include "Env.h"
-
+#include "Closure.h"
 
 /*		### DECLARATION FONCTION PRIVEE###	*/
 static void copy_global(Env env, List global);
@@ -12,7 +12,7 @@ Env empty_env(){
 	Env e = malloc(sizeof(Env));
 	e->global_env = NULL;
 	e->local_env = NULL;
-	
+	e->list_to_pg = NULL;
 	return e;
 }
 
@@ -42,6 +42,20 @@ void push_global_var(Env env, const char* ident, Value value){
 	//~ display_env(env);
 }
 
+void push_closure(Env env, Closure cl){
+	/* create new cell*/
+	
+	Closure_cell* cell = malloc(sizeof(Closure_cell));
+	cell->closure = cl;
+	
+	/*insertion in head*/
+	cell->next = env->list_to_pg;
+	env->list_to_pg = cell;	
+	
+	
+	//~ display_env(env);
+}
+
 Env deep_copy(Env env){
 	Env ret = empty_env();
 	copy_global(ret, env->global_env);
@@ -51,7 +65,7 @@ Env deep_copy(Env env){
 
 Env surface_copy(Env env){
 	Env ret = empty_env();
-	copy_global(ret, env->global_env);
+	ret->global_env = env->global_env;
 	ret->local_env = env->local_env;
 	return ret;
 }
@@ -81,6 +95,13 @@ void purge_env(Env env){
 		free(list->name);
 		free(list);
 	}
+	Closure_list temp2;
+	for(Closure_list list = env->list_to_pg; list != NULL; list = temp2){
+		temp2 = list->next;
+		free_closure(list->closure);
+		free(list);
+	}
+	
 	
 	free(env);
 }

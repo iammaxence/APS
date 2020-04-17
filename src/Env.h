@@ -39,9 +39,16 @@ typedef struct _f{
 }Cell, *List;
 
 
+typedef struct _lc{
+	struct _lc* next;
+	Closure closure;
+}Closure_cell, *Closure_list;
+
 typedef struct _env{
 	List global_env;
 	List local_env;
+	Closure_list list_to_pg;
+	Value rax; // pas encore utilisé
 }*Env;
 
 /*		### DECLARATION FONCTION ###	*/
@@ -62,4 +69,6 @@ void purge_env(Env env);
 Value acces_env(const Env env, const char* name);
 
 void display_env(const Env env);
+
+void push_closure(Env env, Closure cl);
 #endif

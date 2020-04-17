@@ -17,6 +17,7 @@ typedef struct{
 	String* args;
 }*Closure;
 */
+
 /*		### DECLARATION FONCTION ###	*/
 Closure create_closure(AST body, Env env, AST arg);
 

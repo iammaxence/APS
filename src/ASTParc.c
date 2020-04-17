@@ -427,6 +427,7 @@ Value eval(AST node, Env env){
 		case(ASTDEC1): 
 			v.closure = create_closure(node->child[3], env, node->child[2]);
 			push_global_var(env, (char*)(node->child[0]->bonus), v);
+			push_closure(env, v.closure);
 			break;
 
 		case(ASTDEC2): break;
@@ -454,6 +455,7 @@ Value eval(AST node, Env env){
 			
 		case(ASTEXPR2): 			
 			v.closure = create_closure(node->child[1], env, node->child[0]);
+			push_closure(env, v.closure);
 			return v;
 
 		case(ASTEXPR3): 

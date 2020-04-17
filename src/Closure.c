@@ -30,5 +30,7 @@ Value apply(Value (*eval)(AST, Env), Closure closure, AST args){
 }
 
 void free_closure(Closure closure){
-	// todo
+	free(closure.args);
+	purge_local_env(closure.env);
+	free(closure.env);
 }

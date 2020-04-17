@@ -107,7 +107,8 @@ int main(void){
 	printf("\n");
 	eval(node, env);
 
-	freeAst(node);
+	freeAst(node);	
+	purge_env(env);
 
 	return error_code;
 }
