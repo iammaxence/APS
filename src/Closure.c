@@ -25,7 +25,11 @@ Value apply(Value (*eval)(AST, Env), Closure closure, AST args){
 	
 	Value ret = eval(closure.body, closure.env);
 	// remove agr to env
-	purge_local_env(closure.env);
+	for(int i = 0; i < args->size; i++){
+		purge_head(&(closure.env->local_env));
+	}
+	
+	//~ purge_local_env(closure.env);
 	return ret;
 }
 

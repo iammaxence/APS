@@ -17,9 +17,9 @@
 typedef char* String;
 
 typedef struct{
-	AST body;
-	struct _env *env;
-	String* args;
+	AST body; // 8 octets 
+	struct _env *env; // 8 octets 
+	String* args; // 8 octets 
 }Closure;
 
 typedef enum{
@@ -28,8 +28,8 @@ typedef enum{
 }ValueType;
 
 typedef union{
-	Closure closure;
-	int num;
+	Closure closure; // env 24 octets 
+	long int num; // 8 octets 
 }Value;
 
 typedef struct _f{
@@ -71,4 +71,6 @@ Value acces_env(const Env env, const char* name);
 void display_env(const Env env);
 
 void push_closure(Env env, Closure cl);
+
+void purge_head(List *lst);
 #endif

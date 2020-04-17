@@ -81,6 +81,15 @@ void purge_local_env(Env env){
 	env->local_env = NULL;
 }
 
+void purge_head(List *lst){
+	// TODO check if head is an array or a closure and free it
+	
+	List next = (*lst)->next;
+	free((*lst)->name);
+	free(*lst);
+	*lst = next;
+}
+
 void purge_env(Env env){
 	List temp;
 	
@@ -118,7 +127,7 @@ Value acces_env(const Env env, const char* name){
 	}
 
 	
-	return (Value) -99999; // ERRRRROR
+	return (Value) -99999l; // ERRRRROR
 }
 
 void display_env(const Env env){
