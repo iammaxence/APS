@@ -417,7 +417,7 @@ Value eval(AST node, Env env){
 			break;
 		
 		case(ASTStates): 
-			printf("%d\n", eval(node->child[0], env).num);	
+			printf("%ld\n", eval(node->child[0], env).num);	
 			break;
 
 		case(ASTDEC0): 
