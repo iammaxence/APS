@@ -80,6 +80,11 @@ void display(AST node, int n){
 		case(ASTStates):	displayNTab(n);
 							printf("ECHO\n"); display(node->child[0], n+1);
 							break;
+		
+		case(ASTStates1):	displayNTab(n);
+							display(node->child[0], n);
+							display(node->child[1], n);
+							break;
 
 		case(ASTDEC0): 		displayNTab(n);
 							printf("CONST\n");
@@ -98,6 +103,26 @@ void display(AST node, int n){
 
 		case(ASTDEC2): 		displayNTab(n);
 							printf("FUN\nRED\n");
+							display(node->child[0], n);
+							display(node->child[1], n);
+							display(node->child[2], n);
+							break;
+		
+		case(ASTDEC3): 		displayNTab(n);
+							printf("VAR\n");
+							display(node->child[0], n);
+							display(node->child[1], n);
+							break;
+		
+		case(ASTDEC4): 		displayNTab(n);
+							printf("PROC\n");
+							display(node->child[0], n);
+							display(node->child[1], n);
+							display(node->child[2], n);
+							break;
+		
+		case(ASTDEC5): 		displayNTab(n);
+							printf("PROC\nRED\n");
 							display(node->child[0], n);
 							display(node->child[1], n);
 							display(node->child[2], n);
@@ -235,6 +260,40 @@ void displayProlog(AST node, int n){
 							printf("echo("); displayProlog(node->child[0], n);
 							printf(")");
 							break;
+		
+		case(ASTStates1):
+							printf("set(");
+							displayProlog(node->child[0], n);
+							printf(",");
+							displayProlog(node->child[1], n);
+							printf(")");
+							break;
+		
+		case(ASTStates2):
+							printf("if(");
+							displayProlog(node->child[0], n);
+							printf(",");
+							displayProlog(node->child[1], n);
+							printf(",");
+							displayProlog(node->child[2], n);
+							printf(")");
+							break;
+		
+		case(ASTStates3):
+							printf("while(");
+							displayProlog(node->child[0], n);
+							printf(",");
+							displayProlog(node->child[1], n);
+							printf(")");
+							break;
+		
+		case(ASTStates4):
+							printf("call(");
+							displayProlog(node->child[0], n);
+							printf(",");
+							displayProlog(node->child[1], n);
+							printf(")");
+							break;
 
 		case(ASTDEC0):
 							printf("const(");
@@ -260,6 +319,34 @@ void displayProlog(AST node, int n){
 
 		case(ASTDEC2):
 							printf("fun(rec,");
+							displayProlog(node->child[0], n);
+							printf(",");
+							displayProlog(node->child[1], n);
+							printf(",");
+							displayProlog(node->child[2], n);
+							printf(")");
+							break;
+		
+		case(ASTDEC3):
+							printf("var(");
+							displayProlog(node->child[0], n);
+							printf(",");
+							displayProlog(node->child[1], n);
+							printf(")");
+							break;
+		
+		case(ASTDEC4):
+							printf("proc(");
+							displayProlog(node->child[0], n);
+							printf(",");
+							displayProlog(node->child[1], n);
+							printf(",");
+							displayProlog(node->child[2], n);
+							printf(")");
+							break;
+		
+		case(ASTDEC5):
+							printf("proc(rec,");
 							displayProlog(node->child[0], n);
 							printf(",");
 							displayProlog(node->child[1], n);
@@ -419,6 +506,14 @@ Value eval(AST node, Env env){
 		case(ASTStates): 
 			printf("%d\n", eval(node->child[0], env).num);	
 			break;
+		
+		case(ASTStates1): break;
+
+		case(ASTStates2): break;
+
+		case(ASTStates3): break;
+
+		case(ASTStates4): break;
 
 		case(ASTDEC0): 
 			push_global_var(env, (char*)(node->child[0]->bonus), eval(node->child[2], env));
@@ -429,8 +524,15 @@ Value eval(AST node, Env env){
 			push_global_var(env, (char*)(node->child[0]->bonus), v);
 			push_closure(env, v.closure);
 			break;
+		
 
 		case(ASTDEC2): break;
+
+		case(ASTDEC3): break;
+
+		case(ASTDEC4): break;
+
+		case(ASTDEC5): break;
 
 		case(ASTTYPECompo): break;
 

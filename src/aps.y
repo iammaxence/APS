@@ -37,6 +37,12 @@
 %token FUN
 %token REC
 %token _ECHO
+%token VAR
+%token PROC
+%token SET
+%token WHILE
+%token CALL
+%token VOID
 
 %type <node> Progs Cmds States Dec Type Types Args Arg Expr Exprs
 %%
@@ -52,6 +58,10 @@ Cmds: States															{$$ = createNode(ASTCMDS0, 1, $1);}
 	;
 
 States: _ECHO Expr														{$$ = createNode(ASTStates, 1, $2);}
+	  | SET IDENT Expr													{$$ = createNode(ASTStates1, 2, createIdent($2), $3);}
+	  | IF Expr Progs Progs												{$$ = createNode(ASTStates2, 3, $2, $3, $4);}
+	  | WHILE Expr Progs												{$$ = createNode(ASTStates3, 2, $2, $3);}
+	  | CALL IDENT Exprs												{$$ = createNode(ASTStates4, 2, createIdent($2), $3);}
 	;
 
 Dec:
@@ -59,10 +69,14 @@ Dec:
     | CONST IDENT TYPE Expr												{$$ = createNode(ASTDEC0, 3, createIdent($2), createPrimitiveType($3), $4);}
 	| FUN IDENT Type '[' Args ']' Expr									{$$ = createNode(ASTDEC1, 4, createIdent($2), $3, $5, $7);}
 	| FUN REC IDENT Type '[' Args ']' Expr								{$$ = createNode(ASTDEC2, 4, createIdent($3), $4, $6, $8);}
+	| VAR IDENT Type													{$$ = createNode(ASTDEC3, 2, createIdent($2), $3);}
+	|PROC IDENT '[' Args ']' Progs										{$$ = createNode(ASTDEC4, 3, createIdent($2), $4, $6);}
+	|PROC REC IDENT '[' Args ']' Progs									{$$ = createNode(ASTDEC5, 3, createIdent($3), $5, $7);}
 	;
 
 Type: TYPE																{$$ = createPrimitiveType($1);}
 	| '(' Types ')' '-' '>' Type										{$$ = createNode(ASTTYPECompo, 2, $2, $6);}
+	| VOID
 	;
 
 Types: Type																{$$ = createNode(ASTTYPES0, 1, $1);}

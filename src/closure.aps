@@ -1,5 +1,5 @@
 [
-	CONST i int 5;
-	FUN f (int)->int [x:int] (add i 2);
+	WHILE 5 [ ECHO (([x:int] (add i x)) 2) ];
+	CALL f 5;
 	ECHO (([x:int] (add i x)) 2)
 ]

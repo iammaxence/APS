@@ -29,6 +29,12 @@ CONST								return CONST;
 FUN									return FUN;
 REC									return REC;
 ECHO								return _ECHO;
+VAR									return VAR;
+PROC								return PROC;
+SET									return SET;
+WHILE								return WHILE;
+CALL								return CALL;
+VOID								return VOID;
 
 true								{yylval.cbool = 1; 		return CBOOL;}
 false								{yylval.cbool = 0; 		return CBOOL;}
