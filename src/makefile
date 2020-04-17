@@ -37,3 +37,7 @@ clean:
 
 test:
 	bash 
+git:
+	git add .
+	git commit -m "new"
+	git push -u origin master
