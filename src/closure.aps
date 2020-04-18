@@ -1,5 +1,8 @@
 [
-	WHILE 5 [ ECHO (([x:int] (add i x)) 2) ];
-	CALL f 5;
-	ECHO (([x:int] (add i x)) 2)
+	CONST i int 5;
+	FUN REC fact (int)->int [x:int] (
+		(IF (lt x 2) 1 (mul x (fact (sub x 1))))
+	);
+	FUN f (int)->int [x:int] (add i 2);
+	ECHO (fact 5)
 ]
