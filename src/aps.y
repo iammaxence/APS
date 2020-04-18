@@ -60,7 +60,6 @@ Cmds: States															{$$ = createNode(ASTCMDS0, 1, $1);}
 States: _ECHO Expr														{$$ = createNode(ASTStates, 1, $2);}
 	  | SET IDENT Expr													{$$ = createNode(ASTStates1, 2, createIdent($2), $3);}
 	  | IF Expr Progs Progs												{$$ = createNode(ASTStates2, 3, $2, $3, $4);}
-	 
 	  | WHILE Expr Progs												{$$ = createNode(ASTStates3, 2, $2, $3);}
 	  | CALL IDENT Exprs												{$$ = createNode(ASTStates4, 2, createIdent($2), $3);}
 	;
