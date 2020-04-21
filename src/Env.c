@@ -42,6 +42,23 @@ void push_global_var(Env env, const char* ident, Value value){
 	//~ display_env(env);
 }
 
+void edit_var(Env env, const char* name, Value value){
+		for(List list = env->local_env; list != NULL; list = list->next){
+		if(!strcmp(list->name, name)){
+			list->value = value;
+			return;
+		}
+	}
+	
+	for(List list = env->global_env; list != NULL; list = list->next){
+		if(!strcmp(list->name, name)){
+			list->value = value;
+			return;
+		}
+	}
+	
+}
+
 void push_closure(Env env, Closure cl){
 	/* create new cell*/
 	
@@ -116,12 +133,12 @@ void purge_env(Env env){
 }
 
 Value acces_env(const Env env, const char* name){
-	for(List list = env->global_env; list != NULL; list = list->next){
+	for(List list = env->local_env; list != NULL; list = list->next){
 		if(!strcmp(list->name, name))
 			return list->value;
 	}
 	
-	for(List list = env->local_env; list != NULL; list = list->next){
+	for(List list = env->global_env; list != NULL; list = list->next){
 		if(!strcmp(list->name, name))
 			return list->value;
 	}

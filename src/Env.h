@@ -58,6 +58,8 @@ void push_local_var(Env env, const char* ident, Value value);
 
 void push_global_var(Env env, const char* ident, Value value);
 
+void edit_var(Env env, const char* ident, Value value);
+
 Env deep_copy(Env env);
 
 Env surface_copy(Env env);

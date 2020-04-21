@@ -506,15 +506,26 @@ Value eval(AST node, Env env){
 		case(ASTStates): 
 			printf("%ld\n", eval(node->child[0], env).num);	
 			break;
-		
-		case(ASTStates1): break;
+	  
+		case(ASTStates1): 
+			edit_var(env, (char*)(node->child[0]->bonus), eval(node->child[1], env));
+			break; // | SET IDENT Expr	{$$ = createNode(ASTStates1, 2, createIdent($2), $3);}
 
-		case(ASTStates2): break;
-
-		case(ASTStates3): break;
-
-		case(ASTStates4): break;
-
+		case(ASTStates2):  // | IF Expr Progs Progs	{$$ = createNode(ASTStates2, 3, $2, $3, $4);}
+			if(eval(node->child[0], env).num){
+				eval(node->child[1], env);
+			} 
+			else{
+				eval(node->child[2], env);
+			}
+			break;
+		case(ASTStates3): // | WHILE Expr Progs	{$$ = createNode(ASTStates3, 2, $2, $3);}
+			while(eval(node->child[0], env).num){
+				eval(node->child[1], env);
+			}
+			break;
+		case(ASTStates4):  // | CALL IDENT Exprs	{$$ = createNode(ASTStates4, 2, createIdent($2), $3);}
+			return apply(eval, eval(node->child[0], env).closure, node->child[1]);
 		case(ASTDEC0): 
 			push_global_var(env, (char*)(node->child[0]->bonus), eval(node->child[2], env));
 			break;
@@ -533,12 +544,20 @@ Value eval(AST node, Env env){
 			push_closure(env, v.closure);
 			break;
 
-		case(ASTDEC3): break;
-
-		case(ASTDEC4): break;
-
-		case(ASTDEC5): break;
-
+		case(ASTDEC3):  // | VAR IDENT Type {$$ = createNode(ASTDEC3, 2, createIdent($2), $3);}
+			push_global_var(env, (char*)(node->child[0]->bonus), (Value)(-42l));
+			break;
+		case(ASTDEC4):  // | PROC IDENT '[' Args ']' Progs {$$ = createNode(ASTDEC4, 3, createIdent($2), $4, $6);}
+			v.closure = create_closure(node->child[2], env, node->child[1]);
+			push_global_var(env, (char*)(node->child[0]->bonus), v);
+			push_closure(env, v.closure);
+			break;
+		case(ASTDEC5):  // | PROC REC IDENT '[' Args ']' Progs {$$ = createNode(ASTDEC4, 3, createIdent($2), $4, $6);}
+			v.closure = create_closure(node->child[2], env, node->child[1]);
+			push_global_var(v.closure.env, (char*)(node->child[0]->bonus), v);
+			push_global_var(env, (char*)(node->child[0]->bonus), v);
+			push_closure(env, v.closure);
+			break;
 		case(ASTTYPECompo): break;
 
 		case(ASTTYPES0): break;

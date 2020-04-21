@@ -30,6 +30,7 @@
 %token <num> NUM
 %token <ident> IDENT
 %token <type> TYPE
+%token <type> VOID
 %token <clef> CLEF
 
 %token IF
@@ -42,7 +43,6 @@
 %token SET
 %token WHILE
 %token CALL
-%token VOID
 
 %type <node> Progs Cmds States Dec Type Types Args Arg Expr Exprs
 %%
@@ -77,7 +77,7 @@ Dec:
 
 Type: TYPE																{$$ = createPrimitiveType($1);}
 	| '(' Types ')' '-' '>' Type										{$$ = createNode(ASTTYPECompo, 2, $2, $6);}
-	| VOID
+	| VOID																{$$ = createPrimitiveType($1);}
 	;
 
 Types: Type																{$$ = createNode(ASTTYPES0, 1, $1);}

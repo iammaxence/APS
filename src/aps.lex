@@ -51,6 +51,8 @@ bool								{yylval.type.primType = t_bool;
 										return TYPE;}
 int									{yylval.type.primType = t_int;
 										return TYPE;}
+VOID								{yylval.type.primType = t_void;
+										return TYPE;}
 									
 									
 [0-9]+ 								{sscanf(yytext, "%d", &(yylval.num)); return NUM;}	

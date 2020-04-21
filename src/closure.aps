@@ -1,8 +1,17 @@
 [
-	CONST i int 5;
-	FUN REC fact (int)->int [x:int] (
-		(IF (lt x 2) 1 (mul x (fact (sub x 1))))
-	);
-	FUN f (int)->int [x:int] (add i 2);
-	ECHO (fact 5)
+	VAR i int;
+	SET i 5; 
+/*	PROC REC tt [x:int][
+		ECHO (add x i);
+		SET i (sub i 1)
+	];
+	CALL tt 5;
+	CALL tt 5;
+*/
+	ECHO (not(eq 0 i));
+	WHILE (not(eq 0 i)) [
+		ECHO i;
+		SET i (sub i 1)
+	];
+	ECHO i
 ]
