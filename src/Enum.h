@@ -17,11 +17,16 @@
 typedef enum{
 	t_int,
 	t_bool,
-	t_void
+	t_void,
+	t_array
 }TypeEnum;
 
-typedef struct{
+typedef struct _tc{
 	TypeEnum primType;
+	
+	// if t_array
+	unsigned long int size;
+	struct _tc* sub_array;
 }TypeComp;
 
 typedef enum{
@@ -37,6 +42,8 @@ typedef enum{
 }ClefEnum;
 
 /*		### DECLARATION FONCTION ###	*/
+
+TypeComp createTypeComp(TypeEnum primType, unsigned long int size, TypeComp* sub_array);
 
 void displayClefEnum(ClefEnum clef);
 

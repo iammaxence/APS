@@ -30,3 +30,19 @@ void displayTypeComp(TypeComp comp){
 
 	}
 }
+
+TypeComp createTypeComp(TypeEnum primType, unsigned long int size, TypeComp* sub_array){
+	TypeComp tc;
+	
+	tc.primType = primType;
+	
+	if(primType == t_array){
+		tc.size = size;
+		tc.sub_array = sub_array;
+	}
+	else{
+		tc.size = 0;
+		tc.sub_array = NULL;
+	}
+	
+}

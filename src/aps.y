@@ -118,8 +118,8 @@ int main(void){
 	node = NULL;
 	yyparse();
 
-	displayProlog(node, 0);
-	printf("\n");
+	//~ displayProlog(node, 0);
+	//~ printf("\n");
 	eval(node, env);
 
 	freeAst(node);	
