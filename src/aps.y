@@ -118,9 +118,9 @@ int main(void){
 	node = NULL;
 	yyparse();
 
-	//~ displayProlog(node, 0);
+	displayProlog(node, 0);
 	//~ printf("\n");
-	eval(node, env);
+	//eval(node, env);
 
 	freeAst(node);	
 	purge_env(env);

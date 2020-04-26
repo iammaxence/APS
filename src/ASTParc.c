@@ -290,9 +290,9 @@ void displayProlog(AST node, int n){
 		case(ASTStates4):
 							printf("call(");
 							displayProlog(node->child[0], n);
-							printf(",");
+							printf(",[");
 							displayProlog(node->child[1], n);
-							printf(")");
+							printf("])");
 							break;
 
 		case(ASTDEC0):
@@ -318,12 +318,14 @@ void displayProlog(AST node, int n){
 							break;
 
 		case(ASTDEC2):
-							printf("fun(rec,");
+							printf("funrec(");
 							displayProlog(node->child[0], n);
 							printf(",");
 							displayProlog(node->child[1], n);
 							printf(",");
 							displayProlog(node->child[2], n);
+							printf(",");
+							displayProlog(node->child[3], n);
 							printf(")");
 							break;
 		
@@ -346,7 +348,7 @@ void displayProlog(AST node, int n){
 							break;
 		
 		case(ASTDEC5):
-							printf("proc(rec,");
+							printf("procrec(");
 							displayProlog(node->child[0], n);
 							printf(",");
 							displayProlog(node->child[1], n);
@@ -357,7 +359,7 @@ void displayProlog(AST node, int n){
 
 		case(ASTTYPECompo):
 							//printf("types(")
-							printf("[(");
+							printf("[[");
 							displayProlog(node->child[0], n);
 							printf(",");
 							displayProlog(node->child[1], n);
@@ -368,7 +370,7 @@ void displayProlog(AST node, int n){
 		case(ASTTYPES0):
 							//printf("types(");
 							displayProlog(node->child[0], n);
-							printf(")");
+							printf("]");
 							break;
 
 		case(ASTTYPES1):
@@ -435,13 +437,13 @@ void displayProlog(AST node, int n){
 		case(ASTEXPR3):
 							printf("apply(");
 							displayProlog(node->child[0], n);
-							printf(",");
+							printf(",[");
 							displayProlog(node->child[1], n);
-							printf(")");
+							printf("])");
 							break;
 
 		case(ASTEXPRS0):
-							printf("[");
+							printf("");
 
 							for(int i = 0; i < node->size; i++){
 								if(i != 0)
@@ -449,7 +451,7 @@ void displayProlog(AST node, int n){
 								displayProlog(node->child[i], n);
 
 							}
-							printf("]");
+							printf("");
 					
 							break;
 
@@ -463,7 +465,7 @@ void displayProlog(AST node, int n){
 							break;
 
 		case(PrimBool):
-							printf("bool(%s)", (*((int*)node->bonus))?"true":"false");
+							printf("%s", (*((int*)node->bonus))?"true":"false");
 							break;
 
 		case(PrimIdent):

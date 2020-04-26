@@ -1,17 +1,139 @@
 [
-	VAR i int;
-	SET i 5; 
-/*	PROC REC tt [x:int][
-		ECHO (add x i);
-		SET i (sub i 1)
-	];
-	CALL tt 5;
-	CALL tt 5;
-*/
-	ECHO (not(eq 0 i));
-	WHILE (not(eq 0 i)) [
-		ECHO i;
-		SET i (sub i 1)
-	];
-	ECHO i
+  VAR x int;
+  SET x 0;
+  PROC p [n:int]
+    [
+      VAR y int;
+      SET y (mul n 2);
+      SET x y
+    ];
+  ECHO x;
+  IF true
+    [ CALL p 21 ]
+    [ ECHO x ];
+  ECHO x
+
 ]
+
+[
+  VAR x int;
+  PROC REC incr [n:int]
+    [
+      IF (lt x 42)
+        [
+	  SET x (add x n);
+	  CALL incr n
+	]
+	[ ECHO x ]
+    ];
+  SET x 21;
+  ECHO x;
+  CALL incr 1
+]
+
+[
+  VAR x int;
+  PROC incr [n:int]
+    [ SET x (add x n) ];
+  SET x 41;
+  ECHO x;
+  CALL incr 1;
+  ECHO x
+]
+
+[
+  PROC printBool [b:bool]
+    [
+      IF b [ ECHO 1 ] [ ECHO 0 ]
+    ];
+  CALL printBool (lt 0 1)
+]
+
+[
+  PROC printBool [b:bool]
+    [
+      IF b [ECHO 1 ] [ECHO 0]
+    ];
+  CALL printBool false
+]
+
+[
+  VAR x int;
+  VAR b bool;
+  SET x 0;
+  SET b false;
+  WHILE (not b) [
+    SET x (add x 1);
+    IF (eq x 42)
+      [ SET b true ]
+      [ SET b false ]
+  ];
+  ECHO x
+]
+
+[
+  VAR x int;
+  SET x 0;
+  ECHO x;
+  WHILE (lt x 42) [
+    SET x (add x 1)
+  ];
+  ECHO x
+]
+
+[
+  VAR x int;
+  VAR y int;
+  SET x 42;
+  IF (eq x 42)
+    [ ECHO x ]
+    [ SET y 42 ];
+  ECHO y
+]
+
+[
+  CONST x int 0;
+  IF (lt x 2)
+    [ ECHO x ]
+    [ ECHO 42 ]
+]
+
+
+[
+  FUN REC f (int) -> int [x:int] (if (lt x 42) (f (add x 1)) (if (lt 42 x) (f (sub x 1)) x));
+  ECHO (f 23)
+]
+
+[
+  ECHO (if (lt 0 true) 42 43)
+]
+
+[
+  FUN REC f (int) -> int [x:int] (if (lt x 42) (f (add x 1)) (if (lt 42 x) (f (sub x 1)) x));
+  ECHO (f 23)
+]
+
+[
+  CONST a int 5;
+  FUN f (int) -> int [x:int] (add x a);
+  ECHO (f 37)
+]
+
+
+[
+  CONST f (int) -> int [x:int] (add x 5);
+  ECHO (f 37)
+]
+
+[
+  FUN f (int*int) -> int [x:int][y:int](add x y);
+  ECHO (f 5 )
+]
+
+[
+  FUN f (int) -> int [x:int][y:int](add x y);
+  ECHO 5
+]
+
+
+typeExpr([(ident(x), int),  (ident(a), int)], add(ident(x), ident(a)), [[int], int])

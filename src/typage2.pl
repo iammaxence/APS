@@ -6,6 +6,9 @@ assoc(X,[_|XS],V) :- assoc(X,XS,V).
 
 /*
 Les problemes: - CONST f (int)->int [x:int] (add x 5); fonctionne pas
+A faire : FUN REC, PROC REC
+Or c'est ot ?
+
 */
 
 
@@ -91,7 +94,43 @@ typeExpr(G, if(A, B, C), X) :-
   typeExpr(G, B, X),
   typeExpr(G, C, X).
 
+/*APS1 */
 
+/* VAR */
+typeDec(G, var(A,TYPE), G2):-
+  G2=[(A,TYPE)|G].
+
+/*PROC*/
+
+typeDec(E,proc(ID,args(ARGS),BLOCK),VR):-
+  fillEnv(E,ARGS,E2),
+  typeProg(E2,BLOCK,void),
+  typeArgs(ARGS,RESARGS),
+  VR=[(ID,arrow(RESARGS,void))|E].
+
+/*PROC REC*/
+
+/*SET */
+
+typeState(E,set(ID, EXPR),void):-
+  assoc(ID, E, TYPE),
+  typeExpr(E, EXPR, TYPE).
+
+/* IF BLOCK */
+typeState(E, if(bool(COND),BLOCK1,BLOCK2),void):-
+  typeExpr(E,COND,bool),
+  typeProg(E,BLOCK1,void),
+  typeProg(E,BLOCK2,void).
+
+/* WHILE */
+typeState(E, while(bool(COND),BLOCK),void):-
+  typeExpr(E,COND,bool),
+  typeProg(E,BLOCK,void).
+
+/* CALL */
+typeState(E,call(ID,EXPR),void):-
+  assoc(ID,E,arrow(ARGSTYPE,void)),
+  typeExpr(E,EXPR,)
 
 /*ABS */
 
@@ -143,7 +182,7 @@ typeArgs(FI,TYPE):-
   typeExpr(_,FI,TYPE).
 
 verifArgs(_,[],[]).
-verifArgs(_,_,[]). /* Pas sûr que ce soit une bonne idée celui là, il risque de pas tout verifier et s'arrêter avant */
+verifArgs(_,_,[]).
 verifArgs(_,[TFI|TREST],[TAFI|TAREST]):-
   typeExpr(_,TFI,TYPE),
   typeCheck(TYPE,TAFI),

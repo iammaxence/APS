@@ -11,7 +11,7 @@ void displayClefEnum(ClefEnum clef){
 	switch(clef){
 		case(_not): printf("not"); break;
 		case(_and): printf("and"); break;
-		case(_or):  printf("ot");  break;
+		case(_or):  printf("or");  break;
 		case(_eq):  printf("eq");  break;
 		case(_lt):  printf("lt");  break;
 		case(_add): printf("add"); break;
