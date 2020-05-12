@@ -119,6 +119,10 @@ int main(int argc, char **argv){
 	node = NULL;
 	yyparse();
 	
+	if(argc != 2){
+		return;
+	}
+	
 	if(argv[1][1] == 's'){ // syntaxe
 		printf("%d\n", error_code);
 	}
