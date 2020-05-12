@@ -1,7 +1,7 @@
 [
   VAR x int;
   SET x 0;
-  PROC p [n:int]
+  POC p [n:int]
     [
       VAR y int;
       SET y (mul n 2);

@@ -118,13 +118,13 @@ int main(int argc, char **argv){
 	Env env = empty_env();
 	node = NULL;
 	yyparse();
-	
 	if(argc != 2){
 		return 1;
 	}
 	
 	if(argv[1][1] == 's'){ // syntaxe
 		printf("%d\n", error_code);
+		return error_code;
 	}
 	else if(argv[1][1] == 't'){ // typage
 		displayProlog(node, 0);

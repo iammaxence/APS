@@ -17,8 +17,7 @@
 typedef enum{
 	t_int,
 	t_bool,
-	t_void,
-	t_array
+	t_void
 }TypeEnum;
 
 typedef struct _tc{
