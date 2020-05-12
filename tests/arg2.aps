@@ -1,0 +1,5 @@
+[
+	FUN g (int * int) -> int [x: int; y: int] 
+		(or x y);
+	ECHO 5
+]

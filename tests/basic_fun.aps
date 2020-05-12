@@ -1,0 +1,5 @@
+[
+	FUN succ int [ n : int ]
+		(add n 1);
+		ECHO 5
+]
