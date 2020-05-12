@@ -50,6 +50,7 @@
 Progs: '[' Cmds ']' 													{$$ = createNode(ASTProg, 1, $2);
 																		node = $$;
 																		}
+	 | error
 	;
 
 Cmds: States															{$$ = createNode(ASTCMDS0, 1, $1);}
@@ -113,14 +114,21 @@ void yyerror(const char* s){
 	error_code += 1;
 }
 
-int main(void){
+int main(int argc, char **argv){
 	Env env = empty_env();
 	node = NULL;
 	yyparse();
-
-	//~ displayProlog(node, 0);
-	//~ printf("\n");
-	eval(node, env);
+	
+	if(argv[1][1] == 's'){ // syntaxe
+		printf("%d\n", error_code);
+	}
+	else if(argv[1][1] == 't'){ // typage
+		displayProlog(node, 0);
+	}
+	else if(argv[1][1] == 'e'){ // eval
+		eval(node, env);
+	}
+	
 
 	freeAst(node);	
 	purge_env(env);

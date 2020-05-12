@@ -1,4 +1,4 @@
-État 42 conflits: 1 décalage/réduction
+État 43 conflits: 1 décalage/réduction
 
 
 Grammaire
@@ -6,79 +6,80 @@ Grammaire
     0 $accept: Progs $end
 
     1 Progs: '[' Cmds ']'
+    2      | error
 
-    2 Cmds: States
-    3     | Dec ';' Cmds
-    4     | States ';' Cmds
+    3 Cmds: States
+    4     | Dec ';' Cmds
+    5     | States ';' Cmds
 
-    5 States: _ECHO Expr
-    6       | SET IDENT Expr
-    7       | IF Expr Progs Progs
-    8       | WHILE Expr Progs
-    9       | CALL IDENT Exprs
+    6 States: _ECHO Expr
+    7       | SET IDENT Expr
+    8       | IF Expr Progs Progs
+    9       | WHILE Expr Progs
+   10       | CALL IDENT Exprs
 
-   10 Dec: CONST IDENT Type '[' Args ']' Expr
-   11    | CONST IDENT TYPE Expr
-   12    | FUN IDENT Type '[' Args ']' Expr
-   13    | FUN REC IDENT Type '[' Args ']' Expr
-   14    | VAR IDENT Type
-   15    | PROC IDENT '[' Args ']' Progs
-   16    | PROC REC IDENT '[' Args ']' Progs
+   11 Dec: CONST IDENT Type '[' Args ']' Expr
+   12    | CONST IDENT TYPE Expr
+   13    | FUN IDENT Type '[' Args ']' Expr
+   14    | FUN REC IDENT Type '[' Args ']' Expr
+   15    | VAR IDENT Type
+   16    | PROC IDENT '[' Args ']' Progs
+   17    | PROC REC IDENT '[' Args ']' Progs
 
-   17 Type: TYPE
-   18     | '(' Types ')' '-' '>' Type
-   19     | VOID
+   18 Type: TYPE
+   19     | '(' Types ')' '-' '>' Type
+   20     | VOID
 
-   20 Types: Type
-   21      | Type '*' Types
+   21 Types: Type
+   22      | Type '*' Types
 
-   22 Args: Arg
-   23     | Arg ';' Args
+   23 Args: Arg
+   24     | Arg ';' Args
 
-   24 Arg: IDENT ':' Type
+   25 Arg: IDENT ':' Type
 
-   25 Expr: NUM
-   26     | CBOOL
-   27     | IDENT
-   28     | '(' IF Expr Expr Expr ')'
-   29     | '(' CLEF Exprs ')'
-   30     | '[' Args ']' Expr
-   31     | '(' Expr Exprs ')'
-   32     | '(' Expr ')'
+   26 Expr: NUM
+   27     | CBOOL
+   28     | IDENT
+   29     | '(' IF Expr Expr Expr ')'
+   30     | '(' CLEF Exprs ')'
+   31     | '[' Args ']' Expr
+   32     | '(' Expr Exprs ')'
+   33     | '(' Expr ')'
 
-   33 Exprs: Expr
-   34      | Expr Exprs
+   34 Exprs: Expr
+   35      | Expr Exprs
 
 
 Terminaux, suivis des règles où ils apparaissent
 
 $end (0) 0
-'(' (40) 18 28 29 31 32
-')' (41) 18 28 29 31 32
-'*' (42) 21
-'-' (45) 18
-':' (58) 24
-';' (59) 3 4 23
-'>' (62) 18
-'[' (91) 1 10 12 13 15 16 30
-']' (93) 1 10 12 13 15 16 30
-error (256)
-CBOOL (258) 26
-NUM (259) 25
-IDENT (260) 6 9 10 11 12 13 14 15 16 24 27
-TYPE (261) 11 17
-VOID (262) 19
-CLEF (263) 29
-IF (264) 7 28
-CONST (265) 10 11
-FUN (266) 12 13
-REC (267) 13 16
-_ECHO (268) 5
-VAR (269) 14
-PROC (270) 15 16
-SET (271) 6
-WHILE (272) 8
-CALL (273) 9
+'(' (40) 19 29 30 32 33
+')' (41) 19 29 30 32 33
+'*' (42) 22
+'-' (45) 19
+':' (58) 25
+';' (59) 4 5 24
+'>' (62) 19
+'[' (91) 1 11 13 14 16 17 31
+']' (93) 1 11 13 14 16 17 31
+error (256) 2
+CBOOL (258) 27
+NUM (259) 26
+IDENT (260) 7 10 11 12 13 14 15 16 17 25 28
+TYPE (261) 12 18
+VOID (262) 20
+CLEF (263) 30
+IF (264) 8 29
+CONST (265) 11 12
+FUN (266) 13 14
+REC (267) 14 17
+_ECHO (268) 6
+VAR (269) 15
+PROC (270) 16 17
+SET (271) 7
+WHILE (272) 9
+CALL (273) 10
 
 
 Non-terminaux, suivis des règles où ils apparaissent
@@ -86,988 +87,1001 @@ Non-terminaux, suivis des règles où ils apparaissent
 $accept (28)
     à gauche: 0
 Progs (29)
-    à gauche: 1, à droite: 0 7 8 15 16
+    à gauche: 1 2, à droite: 0 8 9 16 17
 Cmds (30)
-    à gauche: 2 3 4, à droite: 1 3 4
+    à gauche: 3 4 5, à droite: 1 4 5
 States (31)
-    à gauche: 5 6 7 8 9, à droite: 2 4
+    à gauche: 6 7 8 9 10, à droite: 3 5
 Dec (32)
-    à gauche: 10 11 12 13 14 15 16, à droite: 3
+    à gauche: 11 12 13 14 15 16 17, à droite: 4
 Type (33)
-    à gauche: 17 18 19, à droite: 10 12 13 14 18 20 21 24
+    à gauche: 18 19 20, à droite: 11 13 14 15 19 21 22 25
 Types (34)
-    à gauche: 20 21, à droite: 18 21
+    à gauche: 21 22, à droite: 19 22
 Args (35)
-    à gauche: 22 23, à droite: 10 12 13 15 16 23 30
+    à gauche: 23 24, à droite: 11 13 14 16 17 24 31
 Arg (36)
-    à gauche: 24, à droite: 22 23
+    à gauche: 25, à droite: 23 24
 Expr (37)
-    à gauche: 25 26 27 28 29 30 31 32, à droite: 5 6 7 8 10 11 12
-    13 28 30 31 32 33 34
+    à gauche: 26 27 28 29 30 31 32 33, à droite: 6 7 8 9 11 12 13
+    14 29 31 32 33 34 35
 Exprs (38)
-    à gauche: 33 34, à droite: 9 29 31 34
+    à gauche: 34 35, à droite: 10 30 32 35
 
 
 État 0
 
     0 $accept: . Progs $end
 
-    '['  décalage et aller à l'état 1
+    error  décalage et aller à l'état 1
+    '['    décalage et aller à l'état 2
 
-    Progs  aller à l'état 2
+    Progs  aller à l'état 3
 
 
 État 1
 
-    1 Progs: '[' . Cmds ']'
+    2 Progs: error .
 
-    IF     décalage et aller à l'état 3
-    CONST  décalage et aller à l'état 4
-    FUN    décalage et aller à l'état 5
-    _ECHO  décalage et aller à l'état 6
-    VAR    décalage et aller à l'état 7
-    PROC   décalage et aller à l'état 8
-    SET    décalage et aller à l'état 9
-    WHILE  décalage et aller à l'état 10
-    CALL   décalage et aller à l'état 11
-
-    Cmds    aller à l'état 12
-    States  aller à l'état 13
-    Dec     aller à l'état 14
+    $défaut  réduction par utilisation de la règle 2 (Progs)
 
 
 État 2
 
-    0 $accept: Progs . $end
+    1 Progs: '[' . Cmds ']'
 
-    $end  décalage et aller à l'état 15
+    IF     décalage et aller à l'état 4
+    CONST  décalage et aller à l'état 5
+    FUN    décalage et aller à l'état 6
+    _ECHO  décalage et aller à l'état 7
+    VAR    décalage et aller à l'état 8
+    PROC   décalage et aller à l'état 9
+    SET    décalage et aller à l'état 10
+    WHILE  décalage et aller à l'état 11
+    CALL   décalage et aller à l'état 12
+
+    Cmds    aller à l'état 13
+    States  aller à l'état 14
+    Dec     aller à l'état 15
 
 
 État 3
 
-    7 States: IF . Expr Progs Progs
+    0 $accept: Progs . $end
 
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr  aller à l'état 21
+    $end  décalage et aller à l'état 16
 
 
 État 4
 
-   10 Dec: CONST . IDENT Type '[' Args ']' Expr
-   11    | CONST . IDENT TYPE Expr
+    8 States: IF . Expr Progs Progs
 
-    IDENT  décalage et aller à l'état 22
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    Expr  aller à l'état 22
 
 
 État 5
 
-   12 Dec: FUN . IDENT Type '[' Args ']' Expr
-   13    | FUN . REC IDENT Type '[' Args ']' Expr
+   11 Dec: CONST . IDENT Type '[' Args ']' Expr
+   12    | CONST . IDENT TYPE Expr
 
     IDENT  décalage et aller à l'état 23
-    REC    décalage et aller à l'état 24
 
 
 État 6
 
-    5 States: _ECHO . Expr
+   13 Dec: FUN . IDENT Type '[' Args ']' Expr
+   14    | FUN . REC IDENT Type '[' Args ']' Expr
 
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr  aller à l'état 25
+    IDENT  décalage et aller à l'état 24
+    REC    décalage et aller à l'état 25
 
 
 État 7
 
-   14 Dec: VAR . IDENT Type
+    6 States: _ECHO . Expr
 
-    IDENT  décalage et aller à l'état 26
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    Expr  aller à l'état 26
 
 
 État 8
 
-   15 Dec: PROC . IDENT '[' Args ']' Progs
-   16    | PROC . REC IDENT '[' Args ']' Progs
+   15 Dec: VAR . IDENT Type
 
     IDENT  décalage et aller à l'état 27
-    REC    décalage et aller à l'état 28
 
 
 État 9
 
-    6 States: SET . IDENT Expr
+   16 Dec: PROC . IDENT '[' Args ']' Progs
+   17    | PROC . REC IDENT '[' Args ']' Progs
 
-    IDENT  décalage et aller à l'état 29
+    IDENT  décalage et aller à l'état 28
+    REC    décalage et aller à l'état 29
 
 
 État 10
 
-    8 States: WHILE . Expr Progs
+    7 States: SET . IDENT Expr
 
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr  aller à l'état 30
+    IDENT  décalage et aller à l'état 30
 
 
 État 11
 
-    9 States: CALL . IDENT Exprs
+    9 States: WHILE . Expr Progs
 
-    IDENT  décalage et aller à l'état 31
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    Expr  aller à l'état 31
 
 
 État 12
 
-    1 Progs: '[' Cmds . ']'
+   10 States: CALL . IDENT Exprs
 
-    ']'  décalage et aller à l'état 32
+    IDENT  décalage et aller à l'état 32
 
 
 État 13
 
-    2 Cmds: States .
-    4     | States . ';' Cmds
+    1 Progs: '[' Cmds . ']'
 
-    ';'  décalage et aller à l'état 33
-
-    $défaut  réduction par utilisation de la règle 2 (Cmds)
+    ']'  décalage et aller à l'état 33
 
 
 État 14
 
-    3 Cmds: Dec . ';' Cmds
+    3 Cmds: States .
+    5     | States . ';' Cmds
 
     ';'  décalage et aller à l'état 34
 
+    $défaut  réduction par utilisation de la règle 3 (Cmds)
+
 
 État 15
+
+    4 Cmds: Dec . ';' Cmds
+
+    ';'  décalage et aller à l'état 35
+
+
+État 16
 
     0 $accept: Progs $end .
 
     $défaut  accepter
 
 
-État 16
-
-   26 Expr: CBOOL .
-
-    $défaut  réduction par utilisation de la règle 26 (Expr)
-
-
 État 17
 
-   25 Expr: NUM .
-
-    $défaut  réduction par utilisation de la règle 25 (Expr)
-
-
-État 18
-
-   27 Expr: IDENT .
+   27 Expr: CBOOL .
 
     $défaut  réduction par utilisation de la règle 27 (Expr)
 
 
+État 18
+
+   26 Expr: NUM .
+
+    $défaut  réduction par utilisation de la règle 26 (Expr)
+
+
 État 19
 
-   30 Expr: '[' . Args ']' Expr
+   28 Expr: IDENT .
 
-    IDENT  décalage et aller à l'état 35
-
-    Args  aller à l'état 36
-    Arg   aller à l'état 37
+    $défaut  réduction par utilisation de la règle 28 (Expr)
 
 
 État 20
 
-   28 Expr: '(' . IF Expr Expr Expr ')'
-   29     | '(' . CLEF Exprs ')'
-   31     | '(' . Expr Exprs ')'
-   32     | '(' . Expr ')'
+   31 Expr: '[' . Args ']' Expr
 
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    CLEF   décalage et aller à l'état 38
-    IF     décalage et aller à l'état 39
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
+    IDENT  décalage et aller à l'état 36
 
-    Expr  aller à l'état 40
+    Args  aller à l'état 37
+    Arg   aller à l'état 38
 
 
 État 21
 
-    7 States: IF Expr . Progs Progs
+   29 Expr: '(' . IF Expr Expr Expr ')'
+   30     | '(' . CLEF Exprs ')'
+   32     | '(' . Expr Exprs ')'
+   33     | '(' . Expr ')'
 
-    '['  décalage et aller à l'état 1
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    CLEF   décalage et aller à l'état 39
+    IF     décalage et aller à l'état 40
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
 
-    Progs  aller à l'état 41
+    Expr  aller à l'état 41
 
 
 État 22
 
-   10 Dec: CONST IDENT . Type '[' Args ']' Expr
-   11    | CONST IDENT . TYPE Expr
+    8 States: IF Expr . Progs Progs
 
-    TYPE  décalage et aller à l'état 42
-    VOID  décalage et aller à l'état 43
-    '('   décalage et aller à l'état 44
+    error  décalage et aller à l'état 1
+    '['    décalage et aller à l'état 2
 
-    Type  aller à l'état 45
+    Progs  aller à l'état 42
 
 
 État 23
 
-   12 Dec: FUN IDENT . Type '[' Args ']' Expr
+   11 Dec: CONST IDENT . Type '[' Args ']' Expr
+   12    | CONST IDENT . TYPE Expr
 
-    TYPE  décalage et aller à l'état 46
-    VOID  décalage et aller à l'état 43
-    '('   décalage et aller à l'état 44
+    TYPE  décalage et aller à l'état 43
+    VOID  décalage et aller à l'état 44
+    '('   décalage et aller à l'état 45
 
-    Type  aller à l'état 47
+    Type  aller à l'état 46
 
 
 État 24
 
-   13 Dec: FUN REC . IDENT Type '[' Args ']' Expr
+   13 Dec: FUN IDENT . Type '[' Args ']' Expr
 
-    IDENT  décalage et aller à l'état 48
+    TYPE  décalage et aller à l'état 47
+    VOID  décalage et aller à l'état 44
+    '('   décalage et aller à l'état 45
+
+    Type  aller à l'état 48
 
 
 État 25
 
-    5 States: _ECHO Expr .
+   14 Dec: FUN REC . IDENT Type '[' Args ']' Expr
 
-    $défaut  réduction par utilisation de la règle 5 (States)
+    IDENT  décalage et aller à l'état 49
 
 
 État 26
 
-   14 Dec: VAR IDENT . Type
+    6 States: _ECHO Expr .
 
-    TYPE  décalage et aller à l'état 46
-    VOID  décalage et aller à l'état 43
-    '('   décalage et aller à l'état 44
-
-    Type  aller à l'état 49
+    $défaut  réduction par utilisation de la règle 6 (States)
 
 
 État 27
 
-   15 Dec: PROC IDENT . '[' Args ']' Progs
+   15 Dec: VAR IDENT . Type
 
-    '['  décalage et aller à l'état 50
+    TYPE  décalage et aller à l'état 47
+    VOID  décalage et aller à l'état 44
+    '('   décalage et aller à l'état 45
+
+    Type  aller à l'état 50
 
 
 État 28
 
-   16 Dec: PROC REC . IDENT '[' Args ']' Progs
+   16 Dec: PROC IDENT . '[' Args ']' Progs
 
-    IDENT  décalage et aller à l'état 51
+    '['  décalage et aller à l'état 51
 
 
 État 29
 
-    6 States: SET IDENT . Expr
+   17 Dec: PROC REC . IDENT '[' Args ']' Progs
 
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr  aller à l'état 52
+    IDENT  décalage et aller à l'état 52
 
 
 État 30
 
-    8 States: WHILE Expr . Progs
+    7 States: SET IDENT . Expr
 
-    '['  décalage et aller à l'état 1
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
 
-    Progs  aller à l'état 53
+    Expr  aller à l'état 53
 
 
 État 31
 
-    9 States: CALL IDENT . Exprs
+    9 States: WHILE Expr . Progs
 
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
+    error  décalage et aller à l'état 1
+    '['    décalage et aller à l'état 2
 
-    Expr   aller à l'état 54
-    Exprs  aller à l'état 55
+    Progs  aller à l'état 54
 
 
 État 32
+
+   10 States: CALL IDENT . Exprs
+
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    Expr   aller à l'état 55
+    Exprs  aller à l'état 56
+
+
+État 33
 
     1 Progs: '[' Cmds ']' .
 
     $défaut  réduction par utilisation de la règle 1 (Progs)
 
 
-État 33
-
-    4 Cmds: States ';' . Cmds
-
-    IF     décalage et aller à l'état 3
-    CONST  décalage et aller à l'état 4
-    FUN    décalage et aller à l'état 5
-    _ECHO  décalage et aller à l'état 6
-    VAR    décalage et aller à l'état 7
-    PROC   décalage et aller à l'état 8
-    SET    décalage et aller à l'état 9
-    WHILE  décalage et aller à l'état 10
-    CALL   décalage et aller à l'état 11
-
-    Cmds    aller à l'état 56
-    States  aller à l'état 13
-    Dec     aller à l'état 14
-
-
 État 34
 
-    3 Cmds: Dec ';' . Cmds
+    5 Cmds: States ';' . Cmds
 
-    IF     décalage et aller à l'état 3
-    CONST  décalage et aller à l'état 4
-    FUN    décalage et aller à l'état 5
-    _ECHO  décalage et aller à l'état 6
-    VAR    décalage et aller à l'état 7
-    PROC   décalage et aller à l'état 8
-    SET    décalage et aller à l'état 9
-    WHILE  décalage et aller à l'état 10
-    CALL   décalage et aller à l'état 11
+    IF     décalage et aller à l'état 4
+    CONST  décalage et aller à l'état 5
+    FUN    décalage et aller à l'état 6
+    _ECHO  décalage et aller à l'état 7
+    VAR    décalage et aller à l'état 8
+    PROC   décalage et aller à l'état 9
+    SET    décalage et aller à l'état 10
+    WHILE  décalage et aller à l'état 11
+    CALL   décalage et aller à l'état 12
 
     Cmds    aller à l'état 57
-    States  aller à l'état 13
-    Dec     aller à l'état 14
+    States  aller à l'état 14
+    Dec     aller à l'état 15
 
 
 État 35
 
-   24 Arg: IDENT . ':' Type
+    4 Cmds: Dec ';' . Cmds
 
-    ':'  décalage et aller à l'état 58
+    IF     décalage et aller à l'état 4
+    CONST  décalage et aller à l'état 5
+    FUN    décalage et aller à l'état 6
+    _ECHO  décalage et aller à l'état 7
+    VAR    décalage et aller à l'état 8
+    PROC   décalage et aller à l'état 9
+    SET    décalage et aller à l'état 10
+    WHILE  décalage et aller à l'état 11
+    CALL   décalage et aller à l'état 12
+
+    Cmds    aller à l'état 58
+    States  aller à l'état 14
+    Dec     aller à l'état 15
 
 
 État 36
 
-   30 Expr: '[' Args . ']' Expr
+   25 Arg: IDENT . ':' Type
 
-    ']'  décalage et aller à l'état 59
+    ':'  décalage et aller à l'état 59
 
 
 État 37
 
-   22 Args: Arg .
-   23     | Arg . ';' Args
+   31 Expr: '[' Args . ']' Expr
 
-    ';'  décalage et aller à l'état 60
-
-    $défaut  réduction par utilisation de la règle 22 (Args)
+    ']'  décalage et aller à l'état 60
 
 
 État 38
 
-   29 Expr: '(' CLEF . Exprs ')'
+   23 Args: Arg .
+   24     | Arg . ';' Args
 
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr   aller à l'état 54
-    Exprs  aller à l'état 61
-
-
-État 39
-
-   28 Expr: '(' IF . Expr Expr Expr ')'
-
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr  aller à l'état 62
-
-
-État 40
-
-   31 Expr: '(' Expr . Exprs ')'
-   32     | '(' Expr . ')'
-
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-    ')'    décalage et aller à l'état 63
-
-    Expr   aller à l'état 54
-    Exprs  aller à l'état 64
-
-
-État 41
-
-    7 States: IF Expr Progs . Progs
-
-    '['  décalage et aller à l'état 1
-
-    Progs  aller à l'état 65
-
-
-État 42
-
-   11 Dec: CONST IDENT TYPE . Expr
-   17 Type: TYPE .
-
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    '['  [réduction par utilisation de la règle 17 (Type)]
-
-    Expr  aller à l'état 66
-
-
-État 43
-
-   19 Type: VOID .
-
-    $défaut  réduction par utilisation de la règle 19 (Type)
-
-
-État 44
-
-   18 Type: '(' . Types ')' '-' '>' Type
-
-    TYPE  décalage et aller à l'état 46
-    VOID  décalage et aller à l'état 43
-    '('   décalage et aller à l'état 44
-
-    Type   aller à l'état 67
-    Types  aller à l'état 68
-
-
-État 45
-
-   10 Dec: CONST IDENT Type . '[' Args ']' Expr
-
-    '['  décalage et aller à l'état 69
-
-
-État 46
-
-   17 Type: TYPE .
-
-    $défaut  réduction par utilisation de la règle 17 (Type)
-
-
-État 47
-
-   12 Dec: FUN IDENT Type . '[' Args ']' Expr
-
-    '['  décalage et aller à l'état 70
-
-
-État 48
-
-   13 Dec: FUN REC IDENT . Type '[' Args ']' Expr
-
-    TYPE  décalage et aller à l'état 46
-    VOID  décalage et aller à l'état 43
-    '('   décalage et aller à l'état 44
-
-    Type  aller à l'état 71
-
-
-État 49
-
-   14 Dec: VAR IDENT Type .
-
-    $défaut  réduction par utilisation de la règle 14 (Dec)
-
-
-État 50
-
-   15 Dec: PROC IDENT '[' . Args ']' Progs
-
-    IDENT  décalage et aller à l'état 35
-
-    Args  aller à l'état 72
-    Arg   aller à l'état 37
-
-
-État 51
-
-   16 Dec: PROC REC IDENT . '[' Args ']' Progs
-
-    '['  décalage et aller à l'état 73
-
-
-État 52
-
-    6 States: SET IDENT Expr .
-
-    $défaut  réduction par utilisation de la règle 6 (States)
-
-
-État 53
-
-    8 States: WHILE Expr Progs .
-
-    $défaut  réduction par utilisation de la règle 8 (States)
-
-
-État 54
-
-   33 Exprs: Expr .
-   34      | Expr . Exprs
-
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    $défaut  réduction par utilisation de la règle 33 (Exprs)
-
-    Expr   aller à l'état 54
-    Exprs  aller à l'état 74
-
-
-État 55
-
-    9 States: CALL IDENT Exprs .
-
-    $défaut  réduction par utilisation de la règle 9 (States)
-
-
-État 56
-
-    4 Cmds: States ';' Cmds .
-
-    $défaut  réduction par utilisation de la règle 4 (Cmds)
-
-
-État 57
-
-    3 Cmds: Dec ';' Cmds .
-
-    $défaut  réduction par utilisation de la règle 3 (Cmds)
-
-
-État 58
-
-   24 Arg: IDENT ':' . Type
-
-    TYPE  décalage et aller à l'état 46
-    VOID  décalage et aller à l'état 43
-    '('   décalage et aller à l'état 44
-
-    Type  aller à l'état 75
-
-
-État 59
-
-   30 Expr: '[' Args ']' . Expr
-
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr  aller à l'état 76
-
-
-État 60
-
-   23 Args: Arg ';' . Args
-
-    IDENT  décalage et aller à l'état 35
-
-    Args  aller à l'état 77
-    Arg   aller à l'état 37
-
-
-État 61
-
-   29 Expr: '(' CLEF Exprs . ')'
-
-    ')'  décalage et aller à l'état 78
-
-
-État 62
-
-   28 Expr: '(' IF Expr . Expr Expr ')'
-
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr  aller à l'état 79
-
-
-État 63
-
-   32 Expr: '(' Expr ')' .
-
-    $défaut  réduction par utilisation de la règle 32 (Expr)
-
-
-État 64
-
-   31 Expr: '(' Expr Exprs . ')'
-
-    ')'  décalage et aller à l'état 80
-
-
-État 65
-
-    7 States: IF Expr Progs Progs .
-
-    $défaut  réduction par utilisation de la règle 7 (States)
-
-
-État 66
-
-   11 Dec: CONST IDENT TYPE Expr .
-
-    $défaut  réduction par utilisation de la règle 11 (Dec)
-
-
-État 67
-
-   20 Types: Type .
-   21      | Type . '*' Types
-
-    '*'  décalage et aller à l'état 81
-
-    $défaut  réduction par utilisation de la règle 20 (Types)
-
-
-État 68
-
-   18 Type: '(' Types . ')' '-' '>' Type
-
-    ')'  décalage et aller à l'état 82
-
-
-État 69
-
-   10 Dec: CONST IDENT Type '[' . Args ']' Expr
-
-    IDENT  décalage et aller à l'état 35
-
-    Args  aller à l'état 83
-    Arg   aller à l'état 37
-
-
-État 70
-
-   12 Dec: FUN IDENT Type '[' . Args ']' Expr
-
-    IDENT  décalage et aller à l'état 35
-
-    Args  aller à l'état 84
-    Arg   aller à l'état 37
-
-
-État 71
-
-   13 Dec: FUN REC IDENT Type . '[' Args ']' Expr
-
-    '['  décalage et aller à l'état 85
-
-
-État 72
-
-   15 Dec: PROC IDENT '[' Args . ']' Progs
-
-    ']'  décalage et aller à l'état 86
-
-
-État 73
-
-   16 Dec: PROC REC IDENT '[' . Args ']' Progs
-
-    IDENT  décalage et aller à l'état 35
-
-    Args  aller à l'état 87
-    Arg   aller à l'état 37
-
-
-État 74
-
-   34 Exprs: Expr Exprs .
-
-    $défaut  réduction par utilisation de la règle 34 (Exprs)
-
-
-État 75
-
-   24 Arg: IDENT ':' Type .
-
-    $défaut  réduction par utilisation de la règle 24 (Arg)
-
-
-État 76
-
-   30 Expr: '[' Args ']' Expr .
-
-    $défaut  réduction par utilisation de la règle 30 (Expr)
-
-
-État 77
-
-   23 Args: Arg ';' Args .
+    ';'  décalage et aller à l'état 61
 
     $défaut  réduction par utilisation de la règle 23 (Args)
 
 
-État 78
+État 39
 
-   29 Expr: '(' CLEF Exprs ')' .
+   30 Expr: '(' CLEF . Exprs ')'
 
-    $défaut  réduction par utilisation de la règle 29 (Expr)
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
 
-
-État 79
-
-   28 Expr: '(' IF Expr Expr . Expr ')'
-
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr  aller à l'état 88
+    Expr   aller à l'état 55
+    Exprs  aller à l'état 62
 
 
-État 80
+État 40
 
-   31 Expr: '(' Expr Exprs ')' .
+   29 Expr: '(' IF . Expr Expr Expr ')'
+
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    Expr  aller à l'état 63
+
+
+État 41
+
+   32 Expr: '(' Expr . Exprs ')'
+   33     | '(' Expr . ')'
+
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+    ')'    décalage et aller à l'état 64
+
+    Expr   aller à l'état 55
+    Exprs  aller à l'état 65
+
+
+État 42
+
+    8 States: IF Expr Progs . Progs
+
+    error  décalage et aller à l'état 1
+    '['    décalage et aller à l'état 2
+
+    Progs  aller à l'état 66
+
+
+État 43
+
+   12 Dec: CONST IDENT TYPE . Expr
+   18 Type: TYPE .
+
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    '['  [réduction par utilisation de la règle 18 (Type)]
+
+    Expr  aller à l'état 67
+
+
+État 44
+
+   20 Type: VOID .
+
+    $défaut  réduction par utilisation de la règle 20 (Type)
+
+
+État 45
+
+   19 Type: '(' . Types ')' '-' '>' Type
+
+    TYPE  décalage et aller à l'état 47
+    VOID  décalage et aller à l'état 44
+    '('   décalage et aller à l'état 45
+
+    Type   aller à l'état 68
+    Types  aller à l'état 69
+
+
+État 46
+
+   11 Dec: CONST IDENT Type . '[' Args ']' Expr
+
+    '['  décalage et aller à l'état 70
+
+
+État 47
+
+   18 Type: TYPE .
+
+    $défaut  réduction par utilisation de la règle 18 (Type)
+
+
+État 48
+
+   13 Dec: FUN IDENT Type . '[' Args ']' Expr
+
+    '['  décalage et aller à l'état 71
+
+
+État 49
+
+   14 Dec: FUN REC IDENT . Type '[' Args ']' Expr
+
+    TYPE  décalage et aller à l'état 47
+    VOID  décalage et aller à l'état 44
+    '('   décalage et aller à l'état 45
+
+    Type  aller à l'état 72
+
+
+État 50
+
+   15 Dec: VAR IDENT Type .
+
+    $défaut  réduction par utilisation de la règle 15 (Dec)
+
+
+État 51
+
+   16 Dec: PROC IDENT '[' . Args ']' Progs
+
+    IDENT  décalage et aller à l'état 36
+
+    Args  aller à l'état 73
+    Arg   aller à l'état 38
+
+
+État 52
+
+   17 Dec: PROC REC IDENT . '[' Args ']' Progs
+
+    '['  décalage et aller à l'état 74
+
+
+État 53
+
+    7 States: SET IDENT Expr .
+
+    $défaut  réduction par utilisation de la règle 7 (States)
+
+
+État 54
+
+    9 States: WHILE Expr Progs .
+
+    $défaut  réduction par utilisation de la règle 9 (States)
+
+
+État 55
+
+   34 Exprs: Expr .
+   35      | Expr . Exprs
+
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    $défaut  réduction par utilisation de la règle 34 (Exprs)
+
+    Expr   aller à l'état 55
+    Exprs  aller à l'état 75
+
+
+État 56
+
+   10 States: CALL IDENT Exprs .
+
+    $défaut  réduction par utilisation de la règle 10 (States)
+
+
+État 57
+
+    5 Cmds: States ';' Cmds .
+
+    $défaut  réduction par utilisation de la règle 5 (Cmds)
+
+
+État 58
+
+    4 Cmds: Dec ';' Cmds .
+
+    $défaut  réduction par utilisation de la règle 4 (Cmds)
+
+
+État 59
+
+   25 Arg: IDENT ':' . Type
+
+    TYPE  décalage et aller à l'état 47
+    VOID  décalage et aller à l'état 44
+    '('   décalage et aller à l'état 45
+
+    Type  aller à l'état 76
+
+
+État 60
+
+   31 Expr: '[' Args ']' . Expr
+
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    Expr  aller à l'état 77
+
+
+État 61
+
+   24 Args: Arg ';' . Args
+
+    IDENT  décalage et aller à l'état 36
+
+    Args  aller à l'état 78
+    Arg   aller à l'état 38
+
+
+État 62
+
+   30 Expr: '(' CLEF Exprs . ')'
+
+    ')'  décalage et aller à l'état 79
+
+
+État 63
+
+   29 Expr: '(' IF Expr . Expr Expr ')'
+
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    Expr  aller à l'état 80
+
+
+État 64
+
+   33 Expr: '(' Expr ')' .
+
+    $défaut  réduction par utilisation de la règle 33 (Expr)
+
+
+État 65
+
+   32 Expr: '(' Expr Exprs . ')'
+
+    ')'  décalage et aller à l'état 81
+
+
+État 66
+
+    8 States: IF Expr Progs Progs .
+
+    $défaut  réduction par utilisation de la règle 8 (States)
+
+
+État 67
+
+   12 Dec: CONST IDENT TYPE Expr .
+
+    $défaut  réduction par utilisation de la règle 12 (Dec)
+
+
+État 68
+
+   21 Types: Type .
+   22      | Type . '*' Types
+
+    '*'  décalage et aller à l'état 82
+
+    $défaut  réduction par utilisation de la règle 21 (Types)
+
+
+État 69
+
+   19 Type: '(' Types . ')' '-' '>' Type
+
+    ')'  décalage et aller à l'état 83
+
+
+État 70
+
+   11 Dec: CONST IDENT Type '[' . Args ']' Expr
+
+    IDENT  décalage et aller à l'état 36
+
+    Args  aller à l'état 84
+    Arg   aller à l'état 38
+
+
+État 71
+
+   13 Dec: FUN IDENT Type '[' . Args ']' Expr
+
+    IDENT  décalage et aller à l'état 36
+
+    Args  aller à l'état 85
+    Arg   aller à l'état 38
+
+
+État 72
+
+   14 Dec: FUN REC IDENT Type . '[' Args ']' Expr
+
+    '['  décalage et aller à l'état 86
+
+
+État 73
+
+   16 Dec: PROC IDENT '[' Args . ']' Progs
+
+    ']'  décalage et aller à l'état 87
+
+
+État 74
+
+   17 Dec: PROC REC IDENT '[' . Args ']' Progs
+
+    IDENT  décalage et aller à l'état 36
+
+    Args  aller à l'état 88
+    Arg   aller à l'état 38
+
+
+État 75
+
+   35 Exprs: Expr Exprs .
+
+    $défaut  réduction par utilisation de la règle 35 (Exprs)
+
+
+État 76
+
+   25 Arg: IDENT ':' Type .
+
+    $défaut  réduction par utilisation de la règle 25 (Arg)
+
+
+État 77
+
+   31 Expr: '[' Args ']' Expr .
 
     $défaut  réduction par utilisation de la règle 31 (Expr)
 
 
+État 78
+
+   24 Args: Arg ';' Args .
+
+    $défaut  réduction par utilisation de la règle 24 (Args)
+
+
+État 79
+
+   30 Expr: '(' CLEF Exprs ')' .
+
+    $défaut  réduction par utilisation de la règle 30 (Expr)
+
+
+État 80
+
+   29 Expr: '(' IF Expr Expr . Expr ')'
+
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    Expr  aller à l'état 89
+
+
 État 81
 
-   21 Types: Type '*' . Types
+   32 Expr: '(' Expr Exprs ')' .
 
-    TYPE  décalage et aller à l'état 46
-    VOID  décalage et aller à l'état 43
-    '('   décalage et aller à l'état 44
-
-    Type   aller à l'état 67
-    Types  aller à l'état 89
+    $défaut  réduction par utilisation de la règle 32 (Expr)
 
 
 État 82
 
-   18 Type: '(' Types ')' . '-' '>' Type
+   22 Types: Type '*' . Types
 
-    '-'  décalage et aller à l'état 90
+    TYPE  décalage et aller à l'état 47
+    VOID  décalage et aller à l'état 44
+    '('   décalage et aller à l'état 45
+
+    Type   aller à l'état 68
+    Types  aller à l'état 90
 
 
 État 83
 
-   10 Dec: CONST IDENT Type '[' Args . ']' Expr
+   19 Type: '(' Types ')' . '-' '>' Type
 
-    ']'  décalage et aller à l'état 91
+    '-'  décalage et aller à l'état 91
 
 
 État 84
 
-   12 Dec: FUN IDENT Type '[' Args . ']' Expr
+   11 Dec: CONST IDENT Type '[' Args . ']' Expr
 
     ']'  décalage et aller à l'état 92
 
 
 État 85
 
-   13 Dec: FUN REC IDENT Type '[' . Args ']' Expr
+   13 Dec: FUN IDENT Type '[' Args . ']' Expr
 
-    IDENT  décalage et aller à l'état 35
-
-    Args  aller à l'état 93
-    Arg   aller à l'état 37
+    ']'  décalage et aller à l'état 93
 
 
 État 86
 
-   15 Dec: PROC IDENT '[' Args ']' . Progs
+   14 Dec: FUN REC IDENT Type '[' . Args ']' Expr
 
-    '['  décalage et aller à l'état 1
+    IDENT  décalage et aller à l'état 36
 
-    Progs  aller à l'état 94
+    Args  aller à l'état 94
+    Arg   aller à l'état 38
 
 
 État 87
 
-   16 Dec: PROC REC IDENT '[' Args . ']' Progs
+   16 Dec: PROC IDENT '[' Args ']' . Progs
 
-    ']'  décalage et aller à l'état 95
+    error  décalage et aller à l'état 1
+    '['    décalage et aller à l'état 2
+
+    Progs  aller à l'état 95
 
 
 État 88
 
-   28 Expr: '(' IF Expr Expr Expr . ')'
+   17 Dec: PROC REC IDENT '[' Args . ']' Progs
 
-    ')'  décalage et aller à l'état 96
+    ']'  décalage et aller à l'état 96
 
 
 État 89
 
-   21 Types: Type '*' Types .
+   29 Expr: '(' IF Expr Expr Expr . ')'
 
-    $défaut  réduction par utilisation de la règle 21 (Types)
+    ')'  décalage et aller à l'état 97
 
 
 État 90
 
-   18 Type: '(' Types ')' '-' . '>' Type
+   22 Types: Type '*' Types .
 
-    '>'  décalage et aller à l'état 97
+    $défaut  réduction par utilisation de la règle 22 (Types)
 
 
 État 91
 
-   10 Dec: CONST IDENT Type '[' Args ']' . Expr
+   19 Type: '(' Types ')' '-' . '>' Type
 
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr  aller à l'état 98
+    '>'  décalage et aller à l'état 98
 
 
 État 92
 
-   12 Dec: FUN IDENT Type '[' Args ']' . Expr
+   11 Dec: CONST IDENT Type '[' Args ']' . Expr
 
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
 
     Expr  aller à l'état 99
 
 
 État 93
 
-   13 Dec: FUN REC IDENT Type '[' Args . ']' Expr
+   13 Dec: FUN IDENT Type '[' Args ']' . Expr
 
-    ']'  décalage et aller à l'état 100
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    Expr  aller à l'état 100
 
 
 État 94
 
-   15 Dec: PROC IDENT '[' Args ']' Progs .
+   14 Dec: FUN REC IDENT Type '[' Args . ']' Expr
 
-    $défaut  réduction par utilisation de la règle 15 (Dec)
+    ']'  décalage et aller à l'état 101
 
 
 État 95
 
-   16 Dec: PROC REC IDENT '[' Args ']' . Progs
-
-    '['  décalage et aller à l'état 1
-
-    Progs  aller à l'état 101
-
-
-État 96
-
-   28 Expr: '(' IF Expr Expr Expr ')' .
-
-    $défaut  réduction par utilisation de la règle 28 (Expr)
-
-
-État 97
-
-   18 Type: '(' Types ')' '-' '>' . Type
-
-    TYPE  décalage et aller à l'état 46
-    VOID  décalage et aller à l'état 43
-    '('   décalage et aller à l'état 44
-
-    Type  aller à l'état 102
-
-
-État 98
-
-   10 Dec: CONST IDENT Type '[' Args ']' Expr .
-
-    $défaut  réduction par utilisation de la règle 10 (Dec)
-
-
-État 99
-
-   12 Dec: FUN IDENT Type '[' Args ']' Expr .
-
-    $défaut  réduction par utilisation de la règle 12 (Dec)
-
-
-État 100
-
-   13 Dec: FUN REC IDENT Type '[' Args ']' . Expr
-
-    CBOOL  décalage et aller à l'état 16
-    NUM    décalage et aller à l'état 17
-    IDENT  décalage et aller à l'état 18
-    '['    décalage et aller à l'état 19
-    '('    décalage et aller à l'état 20
-
-    Expr  aller à l'état 103
-
-
-État 101
-
-   16 Dec: PROC REC IDENT '[' Args ']' Progs .
+   16 Dec: PROC IDENT '[' Args ']' Progs .
 
     $défaut  réduction par utilisation de la règle 16 (Dec)
 
 
+État 96
+
+   17 Dec: PROC REC IDENT '[' Args ']' . Progs
+
+    error  décalage et aller à l'état 1
+    '['    décalage et aller à l'état 2
+
+    Progs  aller à l'état 102
+
+
+État 97
+
+   29 Expr: '(' IF Expr Expr Expr ')' .
+
+    $défaut  réduction par utilisation de la règle 29 (Expr)
+
+
+État 98
+
+   19 Type: '(' Types ')' '-' '>' . Type
+
+    TYPE  décalage et aller à l'état 47
+    VOID  décalage et aller à l'état 44
+    '('   décalage et aller à l'état 45
+
+    Type  aller à l'état 103
+
+
+État 99
+
+   11 Dec: CONST IDENT Type '[' Args ']' Expr .
+
+    $défaut  réduction par utilisation de la règle 11 (Dec)
+
+
+État 100
+
+   13 Dec: FUN IDENT Type '[' Args ']' Expr .
+
+    $défaut  réduction par utilisation de la règle 13 (Dec)
+
+
+État 101
+
+   14 Dec: FUN REC IDENT Type '[' Args ']' . Expr
+
+    CBOOL  décalage et aller à l'état 17
+    NUM    décalage et aller à l'état 18
+    IDENT  décalage et aller à l'état 19
+    '['    décalage et aller à l'état 20
+    '('    décalage et aller à l'état 21
+
+    Expr  aller à l'état 104
+
+
 État 102
 
-   18 Type: '(' Types ')' '-' '>' Type .
+   17 Dec: PROC REC IDENT '[' Args ']' Progs .
 
-    $défaut  réduction par utilisation de la règle 18 (Type)
+    $défaut  réduction par utilisation de la règle 17 (Dec)
 
 
 État 103
 
-   13 Dec: FUN REC IDENT Type '[' Args ']' Expr .
+   19 Type: '(' Types ')' '-' '>' Type .
 
-    $défaut  réduction par utilisation de la règle 13 (Dec)
+    $défaut  réduction par utilisation de la règle 19 (Type)
+
+
+État 104
+
+   14 Dec: FUN REC IDENT Type '[' Args ']' Expr .
+
+    $défaut  réduction par utilisation de la règle 14 (Dec)
