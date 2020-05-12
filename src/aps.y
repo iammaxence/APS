@@ -118,6 +118,7 @@ int main(int argc, char **argv){
 	Env env = empty_env();
 	node = NULL;
 	yyparse();
+	
 	if(argc != 2){
 		return 1;
 	}
@@ -127,7 +128,9 @@ int main(int argc, char **argv){
 		return error_code;
 	}
 	else if(argv[1][1] == 't'){ // typage
+		printf("typeProg([], ");
 		displayProlog(node, 0);
+		printf(", void).");
 	}
 	else if(argv[1][1] == 'e'){ // eval
 		eval(node, env);
