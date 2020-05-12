@@ -120,7 +120,7 @@ int main(int argc, char **argv){
 	yyparse();
 	
 	if(argc != 2){
-		return;
+		return 1;
 	}
 	
 	if(argv[1][1] == 's'){ // syntaxe
