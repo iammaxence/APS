@@ -13,7 +13,7 @@ assoc(X,[_|XVs],V) :- assoc(X,XVs,V).
 
 /*PROG */
 typeProg(E,prog(CMD),void):-
-  typeCMDS(E,CMD,void). 
+  typeCMDS(E,CMD,void).
 
 /*****************CMD****************************/
 
@@ -178,4 +178,3 @@ typeArgs([],[]).
 typeArgs([(FI,TYPE)|REST],[TYPE|TYPES]):-
   typeExpr(_,FI,TYPE),
   typeArgs(REST,TYPES).
-  
