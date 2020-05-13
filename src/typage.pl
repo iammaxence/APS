@@ -126,11 +126,11 @@ typeExpr(G, closure(args(ARGS),EXPRS),RT) :-
 
 /* APP */
 
-typeExpr(E,apply(closure(args(LIST),EXPRS),exprs(ARGS)),TypeFunc):-
-  fillEnv(E, LIST, E2),
+typeExpr(E,apply(closure(args(LIST),EXPRS),ARGS),TypeFunc):-
+  append(LIST,E,E2),
   typeExpr(E2,closure(args(LIST),EXPRS),TypeFunc),
   typeArgs(ARGS,RESARGS),
-  verifArgs(E2,E2,RESARGS).
+  verifArgs(E2,ARGS,RESARGS).
 
 typeExpr(G,apply(ident(A),ARGS),TF) :-
 	assoc(ident(A),G,[ARGSTYPE,TF]),
@@ -191,5 +191,11 @@ typeArgs(_,[(FI,TYPE)|REST]):-
 
 typeArgs([],[]).
 typeArgs([(FI,TYPE)|REST],[TYPE|TYPES]):-
+  typeExpr(_,FI,TYPE),
+  typeArgs(REST,TYPES).
+
+/*temporaire */
+typeArgs([],[]).
+typeArgs([FI|REST],[TYPE|TYPES]):-
   typeExpr(_,FI,TYPE),
   typeArgs(REST,TYPES).
