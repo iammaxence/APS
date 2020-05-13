@@ -1,3 +1,0 @@
-[
-  ECHO ([v:int][x:int](add x v) 37)
-]
