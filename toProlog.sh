@@ -1,5 +1,5 @@
 #! /bin/bash
 
-./src/as < $1
+./src/as < $1 -s
 echo -e
 

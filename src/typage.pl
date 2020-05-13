@@ -11,6 +11,21 @@ assoc(X,[_|XVs],V) :- assoc(X,XVs,V).
  -> test d'apply closure a faire
 */
 
+/* Pour le script */
+
+main_stdin :-
+	read(user_input,T),
+	typeCheck(T,R),
+	print(R),
+  nl,
+	exitCode(R).
+
+typeCheck(P,ok):- typeProg([],P,void).
+typeCheck(_,ko).
+
+exitCode(ok) :- halt(0).
+exitCode(_).
+
 /*PROG */
 typeProg(E,prog(CMD),void):-
   typeCMDS(E,CMD,void).
