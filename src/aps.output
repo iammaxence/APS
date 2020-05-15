@@ -27,7 +27,7 @@ Grammaire
    17    | PROC REC IDENT '[' Args ']' Progs
 
    18 Type: TYPE
-   19     | '(' Types ')' '-' '>' Type
+   19     | '(' Types '-' '>' Type ')'
    20     | VOID
 
    21 Types: Type
@@ -574,7 +574,7 @@ Exprs (38)
 
 État 45
 
-   19 Type: '(' . Types ')' '-' '>' Type
+   19 Type: '(' . Types '-' '>' Type ')'
 
     TYPE  décalage et aller à l'état 47
     VOID  décalage et aller à l'état 44
@@ -786,9 +786,9 @@ Exprs (38)
 
 État 69
 
-   19 Type: '(' Types . ')' '-' '>' Type
+   19 Type: '(' Types . '-' '>' Type ')'
 
-    ')'  décalage et aller à l'état 83
+    '-'  décalage et aller à l'état 83
 
 
 État 70
@@ -904,9 +904,9 @@ Exprs (38)
 
 État 83
 
-   19 Type: '(' Types ')' . '-' '>' Type
+   19 Type: '(' Types '-' . '>' Type ')'
 
-    '-'  décalage et aller à l'état 91
+    '>'  décalage et aller à l'état 91
 
 
 État 84
@@ -966,9 +966,13 @@ Exprs (38)
 
 État 91
 
-   19 Type: '(' Types ')' '-' . '>' Type
+   19 Type: '(' Types '-' '>' . Type ')'
 
-    '>'  décalage et aller à l'état 98
+    TYPE  décalage et aller à l'état 47
+    VOID  décalage et aller à l'état 44
+    '('   décalage et aller à l'état 45
+
+    Type  aller à l'état 98
 
 
 État 92
@@ -1030,13 +1034,9 @@ Exprs (38)
 
 État 98
 
-   19 Type: '(' Types ')' '-' '>' . Type
+   19 Type: '(' Types '-' '>' Type . ')'
 
-    TYPE  décalage et aller à l'état 47
-    VOID  décalage et aller à l'état 44
-    '('   décalage et aller à l'état 45
-
-    Type  aller à l'état 103
+    ')'  décalage et aller à l'état 103
 
 
 État 99
@@ -1075,7 +1075,7 @@ Exprs (38)
 
 État 103
 
-   19 Type: '(' Types ')' '-' '>' Type .
+   19 Type: '(' Types '-' '>' Type ')' .
 
     $défaut  réduction par utilisation de la règle 19 (Type)
 

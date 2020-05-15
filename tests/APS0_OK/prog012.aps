@@ -1,4 +1,4 @@
 [
-  FUN REC f (int) -> int [x:int] (IF (lt x 42) (f (add x 1)) (IF (lt 42 x) (f (sub x 1)) x));
+  FUN REC f int [x:int] (IF (lt x 42) (f (add x 1)) (IF (lt 42 x) (f (sub x 1)) x));
   ECHO (f 23)
 ]

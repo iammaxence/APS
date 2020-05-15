@@ -359,27 +359,28 @@ void displayProlog(AST node, int n){
 
 		case(ASTTYPECompo):
 							//printf("types(")
-							printf("[[");
+							printf("arrow(");
 							displayProlog(node->child[0], n);
 							printf(",");
 							displayProlog(node->child[1], n);
-							printf("]");
+							printf(")");
 							//printf(")");
 							break;
 
 		case(ASTTYPES0):
 							//printf("types(");
+							printf("[");
 							displayProlog(node->child[0], n);
 							printf("]");
 							break;
 
 		case(ASTTYPES1):
 							//printf("types(");
-							//printf("(");
+							//printf("[");
 							displayProlog(node->child[0], n);
 							printf(",");
 							displayProlog(node->child[1], n);
-							//printf(")");
+							//printf("]");
 							break;
 
 		case(ASTARGS0):

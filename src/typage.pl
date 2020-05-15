@@ -54,18 +54,20 @@ typeDec(G,const(C,TYPE,EXPR),VR):-
 
 /* FUN */
 
-typeDec(E,fun(ID,[TARGS,TR],args(ARGS),EXPRS),ST):-
+typeDec(E,fun(ID,TR,args(ARGS),EXPRS),ST):-
   append(ARGS,E,E2),
   typeExpr(E2,EXPRS,TR),
-  ST=[(ID,[TARGS,TR])].
+  typeArgs(ARGS,TARGS),
+  ST=[(ID,arrow(TARGS,TR))].
 
 /* FUN REC */
 
-typeDec(G,funrec(ID,[TARGS,TR],args(ARGS),EXPR),G1):-
+typeDec(G,funrec(ID,TR,args(ARGS),EXPR),G1):-
 	append(ARGS,G,G2),
-	G3 = [(ID,[TARGS,TR])|G2],
-	typeExpr(G3,EXPR,_), /* changement plus tard */
-	G1=[(ID,[TARGS,TR])|G].
+  typeArgs(ARGS,TARGS),
+	G3 = [(ID,arrow(TARGS,TR))|G2],
+	typeExpr(G3,EXPR,TR), /* changement plus tard */
+	G1=[(ID,arrow(TARGS,TR))|G].
 
 
 /*APS1 */
@@ -120,21 +122,26 @@ typeState(E,call(ID,ARGS),void):-
   verifArgs(E,ARGS,ARGSTYPE).
 
 /*ABS */
-typeExpr(G, closure(args(ARGS),EXPRS),RT) :-
+typeExpr(G, closure(args(ARGS),EXPRS),arrow(_,RT)) :-
   append(ARGS,G,G2),
   typeExpr(G2,EXPRS,RT).
 
 /* APP */
 
 typeExpr(E,apply(closure(args(LIST),EXPRS),ARGS),TypeFunc):-
-  append(LIST,E,E2),
-  typeExpr(E2,closure(args(LIST),EXPRS),TypeFunc),
   typeArgs(ARGS,RESARGS),
-  verifArgs(E2,ARGS,RESARGS).
+  verifArgs(E,ARGS,RESARGS),
+  append(LIST,E,E2),
+  typeExpr(E2,EXPRS,TypeFunc).
 
-typeExpr(G,apply(ident(A),ARGS),TF) :-
-	assoc(ident(A),G,[ARGSTYPE,TF]),
-	verifArgs(G,ARGS,ARGSTYPE).
+typeExpr(G,apply(ident(A),ARGS),TR) :-
+	assoc(ident(A),G,arrow(TARGS,TR)),
+	verifArgs(G,ARGS,TARGS).
+
+
+typeExpr(E,apply(apply(X,Y),ARGS),TR) :-
+	typeArgs(ARGS,TARGS),
+	typeExpr(E,apply(X,Y),arrow(TARGS,TR)).
 
 
 /* Types Primitif */
@@ -182,20 +189,12 @@ verifArgs(G,[ARG|ARGS],[ARGTYPE|ARGSTYPE]) :-
 	typeExpr(G,ARG,ARGTYPE),
 	verifArgs(G,ARGS,ARGSTYPE).
 
-/* TYPE ARGS  a verifier
-typeArgs(_,[]).
-typeArgs(_,[(FI,TYPE)|REST]):-
-  typeExpr(_,FI,TYPE),
-  typeArgs(_,REST).
-*/
-
-typeArgs([],[]).
-typeArgs([(FI,TYPE)|REST],[TYPE|TYPES]):-
-  typeExpr(_,FI,TYPE),
+/*cas (ident,type) */
+typeArgs([(_,T)|REST],[TYPE|TYPES]):-
   typeArgs(REST,TYPES).
 
-/*temporaire */
+/*autre cas */
 typeArgs([],[]).
 typeArgs([FI|REST],[TYPE|TYPES]):-
-  typeExpr(_,FI,TYPE),
+  typeExpr([],FI,TYPE),
   typeArgs(REST,TYPES).

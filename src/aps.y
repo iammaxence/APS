@@ -77,7 +77,7 @@ Dec:
 	;
 
 Type: TYPE																{$$ = createPrimitiveType($1);}
-	| '(' Types ')' '-' '>' Type										{$$ = createNode(ASTTYPECompo, 2, $2, $6);}
+	| '(' Types '-' '>' Type  ')'										{$$ = createNode(ASTTYPECompo, 2, $2, $5);}
 	| VOID																{$$ = createPrimitiveType($1);}
 	;
 

@@ -1,4 +1,16 @@
 [
+  FUN f (int -> (int -> int)) [x:int][y:int][z:int](add x (add y z));
+  ECHO ((f 21) 21)
+]
+
+
+[
+  FUN f (int -> int) [x:int][y:int](add x y);
+  ECHO ((f 21) 31)
+]
+
+
+[
   VAR x int;
   SET x 0;
   PROC p [n:int]
