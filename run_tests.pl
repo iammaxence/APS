@@ -42,8 +42,8 @@ say "Compilation OK.\n\nRunning tests...\n";
 my ($err_count, $total) = (0, 0);
 
 for my $test (sort keys %tests) {
-    my $filename = "./tests/$test.aps";
-    my $res = `./src/as < $filename`;
+    my $filename = "./tests/APS0_OK/$test.aps";
+    my $res = `./src/as < $filename -e`;
     chomp $res;
     if ($res ne $tests{$test}) {
         $err_count++;
