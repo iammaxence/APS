@@ -81,15 +81,15 @@ typeDec(G,proc(ID,args(ARGS),BLOCK),VR):-
   append(ARGS,G,G1),
   typeProg(G1,BLOCK,void),
   typeArgs(ARGS,ARGSTYPE),
-  VR=[(ID,ARGSTYPE)|G]. /* A verifier */
+  VR=[(ID,arrow(ARGSTYPE,void))|G]. /* A verifier */
 
 /*PROC REC*/
 typeDec(G,procrec(ID,args(ARGS),BLOCK),VR):-
   typeArgs(ARGS,ARGSTYPE),
   append(ARGS,G,G1),
-  G2=[(ID,ARGSTYPE)|G1], /* A verifier */
+  G2=[(ID,arrow(ARGSTYPE,void))|G1], /* A verifier */
   typeProg(G2,BLOCK,void),
-  VR=[(ID,ARGSTYPE)|G]. /* A verifier */
+  VR=[(ID,arrow(ARGSTYPE,void))|G]. /* A verifier */
 
 
 /*******************STATES**********************/
@@ -118,7 +118,7 @@ typeState(E, while(COND,BLOCK),void):-
 
 /* CALL */
 typeState(E,call(ID,ARGS),void):-
-  assoc(ID,E,ARGSTYPE),
+  assoc(ID,E,arrow(ARGSTYPE,void)),
   verifArgs(E,ARGS,ARGSTYPE).
 
 /*ABS */

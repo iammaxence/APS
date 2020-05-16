@@ -24,7 +24,7 @@ extern int error_code;
 <commentaire>\n 					cmp_ligne++;
 "//"+.*\n 							cmp_ligne++;
 
-IF 									return IF;
+if 									return IF;
 CONST								return CONST;
 FUN									return FUN;
 REC									return REC;
