@@ -9,7 +9,7 @@ static void copy_local(Env env, List local);
 /*		### DEFINITION FONCTION ###		*/
 
 Env empty_env(){
-	Env e = malloc(sizeof(Env));
+	Env e = malloc(sizeof(struct _env));
 	e->global_env = NULL;
 	e->local_env = NULL;
 	e->list_to_pg = NULL;
@@ -18,6 +18,7 @@ Env empty_env(){
 
 void push_local_var(Env env, const char* ident, Value value){
 	/* create new cell*/
+
 	Cell* cell = malloc(sizeof(Cell));
 	cell->name = strdup(ident);
 	cell->value = value;
@@ -29,7 +30,6 @@ void push_local_var(Env env, const char* ident, Value value){
 
 void push_global_var(Env env, const char* ident, Value value){
 	/* create new cell*/
-	
 	Cell* cell = malloc(sizeof(Cell));
 	cell->name = strdup(ident);
 	cell->value = value;
@@ -61,7 +61,6 @@ void edit_var(Env env, const char* name, Value value){
 
 void push_closure(Env env, Closure cl){
 	/* create new cell*/
-	
 	Closure_cell* cell = malloc(sizeof(Closure_cell));
 	cell->closure = cl;
 	

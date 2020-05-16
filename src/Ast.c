@@ -9,7 +9,7 @@
 /*		### DEFINITION FONCTION ###		*/
 
 AST createNode(AstTag tag, unsigned int nbElem, ...){
-	AST ret = malloc(sizeof(AST));
+	AST ret = malloc(sizeof(struct _ast));
 	ret->tag = tag;
 	ret->size = nbElem;
 	ret->child = malloc(sizeof(AST) * nbElem);
@@ -28,7 +28,7 @@ AST createNode(AstTag tag, unsigned int nbElem, ...){
 }
 // ASTARGS1
 AST createArrayFromList(AstTag tag , AST arg, AST args){
-	AST ret = malloc(sizeof(AST));
+	AST ret = malloc(sizeof(struct _ast));
 	ret->tag = tag;
 	ret->size = 1 + args->size;
 	ret->child = malloc(sizeof(AST) * (1+args->size));
@@ -46,7 +46,7 @@ AST createArrayFromList(AstTag tag , AST arg, AST args){
 
 
 AST createInt(int value){
-	AST ret = malloc(sizeof(AST));
+	AST ret = malloc(sizeof(struct _ast));
 
 	ret->tag = PrimInt;
 	ret->size = 0;
@@ -58,7 +58,7 @@ AST createInt(int value){
 }
 
 AST createBool(int value){
-	AST ret = malloc(sizeof(AST));
+	AST ret = malloc(sizeof(struct _ast));
 
 	ret->tag = PrimBool;
 	ret->size = 0;
@@ -70,7 +70,7 @@ AST createBool(int value){
 }
 
 AST createPrimitiveType(TypeComp type){
-	AST ret = malloc(sizeof(AST));
+	AST ret = malloc(sizeof(struct _ast));
 
 	ret->tag = PrimType;
 	ret->size = 0;
@@ -82,7 +82,7 @@ AST createPrimitiveType(TypeComp type){
 }
 
 AST createClef(ClefEnum clef){
-	AST ret = malloc(sizeof(AST));
+	AST ret = malloc(sizeof(struct _ast));
 
 	ret->tag = PrimClef;
 	ret->size = 0;
@@ -94,12 +94,12 @@ AST createClef(ClefEnum clef){
 }
 
 AST createIdent(const char* str){
-	AST ret = malloc(sizeof(AST));
+	AST ret = malloc(sizeof(struct _ast));
 
 	ret->tag = PrimIdent;
 	ret->size = 0;
 	ret->child = NULL;
-	ret->bonus = malloc(sizeof(char) * (strlen(str)+1));
+	ret->bonus = strdup(str);
 	strcpy(ret->bonus, str);
 	
 	return ret;
