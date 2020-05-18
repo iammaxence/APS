@@ -34,6 +34,7 @@
 %token <clef> CLEF
 
 %token IF
+%token IF_i
 %token CONST
 %token FUN
 %token REC
@@ -60,7 +61,7 @@ Cmds: States															{$$ = createNode(ASTCMDS0, 1, $1);}
 
 States: _ECHO Expr														{$$ = createNode(ASTStates, 1, $2);}
 	  | SET IDENT Expr													{$$ = createNode(ASTStates1, 2, createIdent($2), $3);}
-	  | IF Expr Progs Progs												{$$ = createNode(ASTStates2, 3, $2, $3, $4);}
+	  | IF_i Expr Progs Progs											{$$ = createNode(ASTStates2, 3, $2, $3, $4);}
 	  | WHILE Expr Progs												{$$ = createNode(ASTStates3, 2, $2, $3);}
 	  | CALL IDENT Exprs												{$$ = createNode(ASTStates4, 2, createIdent($2), $3);}
 	;
@@ -86,7 +87,7 @@ Types: Type																{$$ = createNode(ASTTYPES0, 1, $1);}
 	;
 
 Args: Arg																{$$ = createNode(ASTARGS0, 1, $1);}
-	| Arg ';' Args														{$$ = createArrayFromList(ASTARGS1, $1, $3);}
+	| Arg ',' Args														{$$ = createArrayFromList(ASTARGS1, $1, $3);}
 	;
 
 Arg: IDENT ':' Type														{$$ = createNode(ASTARG0, 2, createIdent($1), $3);}
