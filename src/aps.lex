@@ -62,7 +62,7 @@ VOID								{yylval.type.primType = t_void;
 						
 						
 
-[\[\]();:,*->] 					return yytext[0]; /*Autre truc autorisé*/
+[\[\]():,*->] 					return yytext[0]; /*Autre truc autorisé*/
 
 
 [ \t] /*truc qu'on ignore plus ou moins*/
