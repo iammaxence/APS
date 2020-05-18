@@ -14,7 +14,7 @@ Grammaire
 
     6 States: _ECHO Expr
     7       | SET IDENT Expr
-    8       | IF Expr Progs Progs
+    8       | IF_i Expr Progs Progs
     9       | WHILE Expr Progs
    10       | CALL IDENT Exprs
 
@@ -34,7 +34,7 @@ Grammaire
    22      | Type '*' Types
 
    23 Args: Arg
-   24     | Arg ';' Args
+   24     | Arg ',' Args
 
    25 Arg: IDENT ':' Type
 
@@ -57,9 +57,10 @@ $end (0) 0
 '(' (40) 19 29 30 32 33
 ')' (41) 19 29 30 32 33
 '*' (42) 22
+',' (44) 24
 '-' (45) 19
 ':' (58) 25
-';' (59) 4 5 24
+';' (59) 4 5
 '>' (62) 19
 '[' (91) 1 11 13 14 16 17 31
 ']' (93) 1 11 13 14 16 17 31
@@ -70,42 +71,43 @@ IDENT (260) 7 10 11 12 13 14 15 16 17 25 28
 TYPE (261) 12 18
 VOID (262) 20
 CLEF (263) 30
-IF (264) 8 29
-CONST (265) 11 12
-FUN (266) 13 14
-REC (267) 14 17
-_ECHO (268) 6
-VAR (269) 15
-PROC (270) 16 17
-SET (271) 7
-WHILE (272) 9
-CALL (273) 10
+IF (264) 29
+IF_i (265) 8
+CONST (266) 11 12
+FUN (267) 13 14
+REC (268) 14 17
+_ECHO (269) 6
+VAR (270) 15
+PROC (271) 16 17
+SET (272) 7
+WHILE (273) 9
+CALL (274) 10
 
 
 Non-terminaux, suivis des règles où ils apparaissent
 
-$accept (28)
+$accept (30)
     à gauche: 0
-Progs (29)
+Progs (31)
     à gauche: 1 2, à droite: 0 8 9 16 17
-Cmds (30)
+Cmds (32)
     à gauche: 3 4 5, à droite: 1 4 5
-States (31)
+States (33)
     à gauche: 6 7 8 9 10, à droite: 3 5
-Dec (32)
+Dec (34)
     à gauche: 11 12 13 14 15 16 17, à droite: 4
-Type (33)
+Type (35)
     à gauche: 18 19 20, à droite: 11 13 14 15 19 21 22 25
-Types (34)
+Types (36)
     à gauche: 21 22, à droite: 19 22
-Args (35)
+Args (37)
     à gauche: 23 24, à droite: 11 13 14 16 17 24 31
-Arg (36)
+Arg (38)
     à gauche: 25, à droite: 23 24
-Expr (37)
+Expr (39)
     à gauche: 26 27 28 29 30 31 32 33, à droite: 6 7 8 9 11 12 13
     14 29 31 32 33 34 35
-Exprs (38)
+Exprs (40)
     à gauche: 34 35, à droite: 10 30 32 35
 
 
@@ -130,7 +132,7 @@ Exprs (38)
 
     1 Progs: '[' . Cmds ']'
 
-    IF     décalage et aller à l'état 4
+    IF_i   décalage et aller à l'état 4
     CONST  décalage et aller à l'état 5
     FUN    décalage et aller à l'état 6
     _ECHO  décalage et aller à l'état 7
@@ -154,7 +156,7 @@ Exprs (38)
 
 État 4
 
-    8 States: IF . Expr Progs Progs
+    8 States: IF_i . Expr Progs Progs
 
     CBOOL  décalage et aller à l'état 17
     NUM    décalage et aller à l'état 18
@@ -320,7 +322,7 @@ Exprs (38)
 
 État 22
 
-    8 States: IF Expr . Progs Progs
+    8 States: IF_i Expr . Progs Progs
 
     error  décalage et aller à l'état 1
     '['    décalage et aller à l'état 2
@@ -438,7 +440,7 @@ Exprs (38)
 
     5 Cmds: States ';' . Cmds
 
-    IF     décalage et aller à l'état 4
+    IF_i   décalage et aller à l'état 4
     CONST  décalage et aller à l'état 5
     FUN    décalage et aller à l'état 6
     _ECHO  décalage et aller à l'état 7
@@ -457,7 +459,7 @@ Exprs (38)
 
     4 Cmds: Dec ';' . Cmds
 
-    IF     décalage et aller à l'état 4
+    IF_i   décalage et aller à l'état 4
     CONST  décalage et aller à l'état 5
     FUN    décalage et aller à l'état 6
     _ECHO  décalage et aller à l'état 7
@@ -489,9 +491,9 @@ Exprs (38)
 État 38
 
    23 Args: Arg .
-   24     | Arg . ';' Args
+   24     | Arg . ',' Args
 
-    ';'  décalage et aller à l'état 61
+    ','  décalage et aller à l'état 61
 
     $défaut  réduction par utilisation de la règle 23 (Args)
 
@@ -541,7 +543,7 @@ Exprs (38)
 
 État 42
 
-    8 States: IF Expr Progs . Progs
+    8 States: IF_i Expr Progs . Progs
 
     error  décalage et aller à l'état 1
     '['    décalage et aller à l'état 2
@@ -718,7 +720,7 @@ Exprs (38)
 
 État 61
 
-   24 Args: Arg ';' . Args
+   24 Args: Arg ',' . Args
 
     IDENT  décalage et aller à l'état 36
 
@@ -762,7 +764,7 @@ Exprs (38)
 
 État 66
 
-    8 States: IF Expr Progs Progs .
+    8 States: IF_i Expr Progs Progs .
 
     $défaut  réduction par utilisation de la règle 8 (States)
 
@@ -858,7 +860,7 @@ Exprs (38)
 
 État 78
 
-   24 Args: Arg ';' Args .
+   24 Args: Arg ',' Args .
 
     $défaut  réduction par utilisation de la règle 24 (Args)
 

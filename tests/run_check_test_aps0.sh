@@ -1,7 +1,7 @@
 #! /bin/bash
 
 
-for i in `ls ./APS0_OK1/*.aps`
+for i in `ls ./APS0_OK/*.aps`
 do
   echo $i " -> "
   echo  " resultat : "
