@@ -67,8 +67,7 @@ States: _ECHO Expr														{$$ = createNode(ASTStates, 1, $2);}
 	;
 
 Dec:
-	  CONST IDENT Type '[' Args ']' Expr								{$$ = createNode(ASTDEC1, 4, createIdent($2), $3, $5, $7);}
-    | CONST IDENT TYPE Expr												{$$ = createNode(ASTDEC0, 3, createIdent($2), createPrimitiveType($3), $4);}
+      CONST IDENT TYPE Expr												{$$ = createNode(ASTDEC0, 3, createIdent($2), createPrimitiveType($3), $4);}
 	| FUN IDENT Type '[' Args ']' Expr									{$$ = createNode(ASTDEC1, 4, createIdent($2), $3, $5, $7);}
 	| FUN REC IDENT Type '[' Args ']' Expr								{$$ = createNode(ASTDEC2, 4, createIdent($3), $4, $6, $8);}
 	
