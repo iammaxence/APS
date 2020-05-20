@@ -1,0 +1,4 @@
+[
+  CONST x int true;
+  ECHO x
+]

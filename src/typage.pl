@@ -58,7 +58,7 @@ typeDec(E,fun(ID,TR,args(ARGS),EXPRS),ST):-
   append(ARGS,E,E2),
   typeExpr(E2,EXPRS,TR),
   typeArgs(ARGS,TARGS),
-  ST=[(ID,arrow(TARGS,TR))].
+  ST=[(ID,arrow(TARGS,TR))|E].
 
 /* FUN REC */
 
@@ -190,7 +190,7 @@ verifArgs(G,[ARG|ARGS],[ARGTYPE|ARGSTYPE]) :-
 	verifArgs(G,ARGS,ARGSTYPE).
 
 /*cas (ident,type) */
-typeArgs([(_,T)|REST],[TYPE|TYPES]):-
+typeArgs([(_,_)|REST],[_|TYPES]):-
   typeArgs(REST,TYPES).
 
 /*autre cas */

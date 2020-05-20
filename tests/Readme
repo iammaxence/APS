@@ -1,0 +1,10 @@
+-------------Manuel d'utilisation--------------
+Pour lancer les test OK:
+-Pour APS0_OK (Les test APS0) : executer ./run_check_aps0.sh
+-Pour APS1_OK (Les test APS1) : executer ./run_check_aps1.sh
+
+Pour lancer les test KO:
+Ce sont les test pour lequels une instantiation ou un mauvais type à été placé. Il vérifie que si l'utilisateur fournis de mauvaises valeurs, alors le typeur n'accepte pas le programme.
+
+-Pour les test APS0_KO : executer la même commande que précédement en changeant dans le fichier ligne 4 "APS0_OK" par "APS0_KO"
+-Pour les test APS1_KO : executer la même commande que précédement en changeant dans le fichier ligne 4 "APS0_KO" par "APS0_KO"

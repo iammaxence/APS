@@ -1,0 +1,3 @@
+[
+  ECHO (if (lt true false) 43 42)
+]
