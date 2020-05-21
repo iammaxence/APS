@@ -1,6 +1,6 @@
 #! /bin/bash
 
-../src/as < $1 -t
+./src/as < $1 -t
 
 
 
